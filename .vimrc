@@ -168,7 +168,7 @@ map <leader>h gT
 
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
-map <leader>tvn :tabnew ~/.vim/vimrc<cr> 
+map <leader>tvn :tabnew ~/.vimrc<cr> 
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove<cr>
