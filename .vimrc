@@ -166,6 +166,9 @@ map <leader>ba :bufdo bd<cr>
 map <leader>l gt
 map <leader>h gT
 
+" mappings for closing a session
+nnoremap <leader>Z :mks! ~/.config/nvim/Session.vim<cr>:qa<cr>
+
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
 map <leader>tvn :tabnew ~/.config/nvim/.vimrc<cr> 
@@ -202,6 +205,9 @@ autocmd Filetype markdown autocmd BufWritePost * %s/==>/\&rArr;/gc
 " autocmd BufWritePost * %s/===>/\&xrArr;/g
 " autocmd BufWritePost * %s/<===/\&xlArr;/g
 
+" Abbreviazioni varie
+autocmd Filetype tex inoremap \ss \sqsubseteq
+
 " Abbreviazioni mrg, markdown
 autocmd Filetype markdown inoremap qw<Space> tra l'altro<Space>
 autocmd Filetype markdown inoremap Qw<Space> Tra l'altro<Space>
@@ -224,6 +230,20 @@ autocmd Filetype cpp nmap <leader>c :w<cr>:!g++ -o %:r % && ./%:r<cr>
 
 " brainfuck alias
 nmap <leader>b :BrainFuck<cr>
+
+" Latex alias
+autocmd BufWritePost *.tex silent! execute "!pdflatex % >/dev/null 2>&1 && killall -SIGHUP llpp" | redraw!
+"autocmd BufWritePost *.tex call ReDrawPdf()
+
+"let g:pidpdf = system('(llpp %:r.pdf >/dev/null 2>&1 &) && echo $!')
+"function! ReDrawPdf ()
+"    if !g:pidpdf
+"        let g:pidpdf = system('(llpp %:r.pdf >/dev/null 2>&1 &) && echo $!')
+"    else
+"        silent! execute "!kill -SIGHUP " + g:pidpdf
+"    endif
+"endfunction
+
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
@@ -270,8 +290,12 @@ if has("autocmd")
     autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
 endif
 
-" saving using ,m
+" saving using ,m (file) and ,. (all files)
 map <leader>m :w<cr>
+map <leader>. :wa<cr>
+
+" Quickly commits changes on git
+map <leader>gg :!git commit -a -m "AutoCommit" && git push<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
@@ -380,8 +404,10 @@ Plug 'scrooloose/nerdtree'
 Plug 'github/copilot.vim'
 Plug 'neomake/neomake'
 "Plug 'vim-latex/vim-latex'
-Plug 'lervag/vimtex'
+"Plug 'lervag/vimtex'
 Plug 'jayli/vim-brainfuck'
+Plug 'jupyter-vim/jupyter-vim'
+Plug 'tpope/vim-surround'
 call plug#end()
 
 " colorscheme
@@ -397,8 +423,7 @@ colorscheme enfocado
 let g:airline_theme = 'enfocado'
 
 " Plugins remappings
-
-nmap <leader>g :Goyo<cr>
+autocmd filetype markdown nnoremap <leader>g :Goyo<cr>
 
 " Plugin Settings
 "autocmd! User GoyoEnter Limelight
@@ -426,11 +451,12 @@ let g:neomake_cpp_clang_args = ['-std=c++14', '-Wall', '-Wextra', '-Weverything'
 call neomake#configure#automake('nrwi', 500)
 
 " latex
-filetype plugin indent on
-let g:tex_flavor='latex'
-autocmd Filetype tex set sw=2
-autocmd Filetype tex set iskeyword+=:
-let g:vimtex_view_general_viewer = "okular"
+" filetype plugin indent on
+" let g:tex_flavor='latex'
+" autocmd Filetype tex set sw=2
+" autocmd Filetype tex set iskeyword+=:
+" let g:vimtex_view_general_viewer = "okular"
+" let g:vimtex_view_method = 'zathura'
 
 
 filetype plugin on
@@ -444,9 +470,9 @@ let g:instant_markdown_mathjax = 1
 "let g:instant_markdown_logfile = '/tmp/instant_markdown.log'
 "let g:instant_markdown_autoscroll = 0
 "let g:instant_markdown_port = 8888
-"let g:instant_markdown_python = 1
+let g:instant_markdown_python = 1
 
-nmap <leader>src :w<cr>:source ~/.vim/vimrc<cr>
+nmap <leader>src :w<cr>:source ~/.config/nvim/.vimrc<cr>
 
 let g:ale_html_tidy_executable = "D://TidyHtml//tidy-5.6.0-vc14-64b//bin//tidy.exe"
  let g:ale_linters = {
@@ -457,3 +483,4 @@ let g:ale_html_tidy_executable = "D://TidyHtml//tidy-5.6.0-vc14-64b//bin//tidy.e
  \   'python': ['flake8'],
  \}
 
+autocmd FileType python ALEDisable
