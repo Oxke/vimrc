@@ -183,27 +183,30 @@ map <leader>tm :tabmove<cr>
 " autocmd Filetype Markdown nnoremap <buffer> gk k
 
 " Arrows in Markdown
-autocmd Filetype markdown autocmd BufWritePost * %s/-->/\&rarr;/gc
-" autocmd BufWritePost * %s/<-/\&larr;/g
-" autocmd BufWritePost * %s/<->/\&harr;/g
-" autocmd BufWritePost * %s/->>/\&Rarr;/g
-" autocmd BufWritePost * %s/<<-/\&Larr;/g
-" autocmd BufWritePost * %s/>->/\&rarrtl;/g
-" autocmd BufWritePost * %s/<-</\&larrtl;/g
-" autocmd BufWritePost * %s/|->/\&mapstoright;/g
-" autocmd BufWritePost * %s/<-|/\&mapstoleft;/g
-autocmd Filetype markdown autocmd BufWritePost * %s/|->/\&rdsh;/gc
-autocmd Filetype markdown autocmd BufWritePost * %s/<=>/\&hArr;/gc
-autocmd Filetype markdown autocmd BufWritePost * %s/==>/\&rArr;/gc
-" autocmd BufWritePost * %s/<==/\&lArr;/g
-" autocmd BufWritePost * %s/====>/\&rAarr;/g
-" autocmd BufWritePost * %s/<====/\&lAarr;/g
-" autocmd BufWritePost * %s/-->/\&xrarr;/g
-" autocmd BufWritePost * %s/<--/\&xlarr;/g
-" autocmd BufWritePost * %s/<-->/\&xharr;/g
-" autocmd BufWritePost * %s/<==>/\&xhArr;/g
-" autocmd BufWritePost * %s/===>/\&xrArr;/g
-" autocmd BufWritePost * %s/<===/\&xlArr;/g
+aug arrows_markdown
+    au!
+    au BufWritePost *.md %s/-->/\&rarr;/gce
+    " au BufWritePost * %s/<-/\&larr;/g
+    " au BufWritePost * %s/<->/\&harr;/g
+    " au BufWritePost * %s/->>/\&Rarr;/g
+    " au BufWritePost * %s/<<-/\&Larr;/g
+    " au BufWritePost * %s/>->/\&rarrtl;/g
+    " au BufWritePost * %s/<-</\&larrtl;/g
+    " au BufWritePost * %s/|->/\&mapstoright;/g
+    " au BufWritePost * %s/<-|/\&mapstoleft;/g
+    au BufWritePost *.md %s/|->/\&rdsh;/gce
+    au BufWritePost *.md %s/<=>/\&hArr;/gce
+    au BufWritePost *.md %s/==>/\&rArr;/gce
+    " au BufWritePost * %s/<==/\&lArr;/g
+    " au BufWritePost * %s/====>/\&rAarr;/g
+    " au BufWritePost * %s/<====/\&lAarr;/g
+    " au BufWritePost * %s/-->/\&xrarr;/g
+    " au BufWritePost * %s/<--/\&xlarr;/g
+    " au BufWritePost * %s/<-->/\&xharr;/g
+    " au BufWritePost * %s/<==>/\&xhArr;/g
+    " au BufWritePost * %s/===>/\&xrArr;/g
+    " au BufWritePost * %s/<===/\&xlArr;/g
+aug end
 
 " Abbreviazioni varie
 autocmd Filetype tex inoremap \ss \sqsubseteq
@@ -244,6 +247,8 @@ autocmd BufWritePost *.tex silent! execute "!pdflatex % >/dev/null 2>&1 && killa
 "    endif
 "endfunction
 
+
+autocmd BufNewFile * silent! 0r ~/.config/nvim/templates/template.%:e
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
