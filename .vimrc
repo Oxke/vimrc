@@ -183,7 +183,7 @@ map <leader>tm :tabmove<cr>
 " autocmd Filetype Markdown nnoremap <buffer> gk k
 
 " Arrows in Markdown
-autocmd Filetype markdown autocmd BufWritePost * %s/-->/\&rarr;/gc
+autocmd BufWritePost *.md silent! %s/-->/\&rarr;/gc
 " autocmd BufWritePost * %s/<-/\&larr;/g
 " autocmd BufWritePost * %s/<->/\&harr;/g
 " autocmd BufWritePost * %s/->>/\&Rarr;/g
@@ -192,9 +192,9 @@ autocmd Filetype markdown autocmd BufWritePost * %s/-->/\&rarr;/gc
 " autocmd BufWritePost * %s/<-</\&larrtl;/g
 " autocmd BufWritePost * %s/|->/\&mapstoright;/g
 " autocmd BufWritePost * %s/<-|/\&mapstoleft;/g
-autocmd Filetype markdown autocmd BufWritePost * %s/|->/\&rdsh;/gc
-autocmd Filetype markdown autocmd BufWritePost * %s/<=>/\&hArr;/gc
-autocmd Filetype markdown autocmd BufWritePost * %s/==>/\&rArr;/gc
+autocmd BufWritePost *.md silent! %s/|->/\&rdsh;/gc
+autocmd BufWritePost *.md silent! %s/<=>/\&hArr;/gc
+autocmd BufWritePost *.md silent! %s/==>/\&rArr;/gc
 " autocmd BufWritePost * %s/<==/\&lArr;/g
 " autocmd BufWritePost * %s/====>/\&rAarr;/g
 " autocmd BufWritePost * %s/<====/\&lAarr;/g
@@ -244,6 +244,8 @@ autocmd BufWritePost *.tex silent! execute "!pdflatex % >/dev/null 2>&1 && killa
 "    endif
 "endfunction
 
+
+autocmd BufNewFile * silent! 0r ~/.config/nvim/templates/template.%:e
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
