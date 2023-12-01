@@ -483,4 +483,8 @@ let g:ale_html_tidy_executable = "D://TidyHtml//tidy-5.6.0-vc14-64b//bin//tidy.e
  \   'python': ['flake8'],
  \}
 
+filetype plugin indent on
+set grepprg=grep\ -nH\ $*
+let g:tex_flavor = "latex"
+
 autocmd FileType python ALEDisable
