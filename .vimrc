@@ -276,7 +276,8 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Move a line of text using ALT+[jk]
+" Move a line of text using Ctrl+[jk]
+"
 nmap <C-J> mz:m+<cr>`z
 nmap <C-K> mz:m-2<cr>`z
 vmap <C-J> :m'>+<cr>`<my`>mzgv`yo`z
@@ -489,3 +490,8 @@ let g:ale_html_tidy_executable = "D://TidyHtml//tidy-5.6.0-vc14-64b//bin//tidy.e
  \}
 
 autocmd FileType python ALEDisable
+
+" Copilot settings
+nmap <C-Space> <Plug>(copilot-snippets-expand)
+imap <A-j> <Plug>(copilot-previous)
+imap <A-k> <Plug>(copilot-next)
