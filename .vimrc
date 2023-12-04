@@ -492,6 +492,5 @@ let g:ale_html_tidy_executable = "D://TidyHtml//tidy-5.6.0-vc14-64b//bin//tidy.e
 autocmd FileType python ALEDisable
 
 " Copilot settings
-nmap <C-Space> <Plug>(copilot-snippets-expand)
 imap <A-j> <Plug>(copilot-previous)
 imap <A-k> <Plug>(copilot-next)
