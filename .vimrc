@@ -276,7 +276,8 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Move a line of text using ALT+[jk]
+" Move a line of text using Ctrl+[jk]
+"
 nmap <C-J> mz:m+<cr>`z
 nmap <C-K> mz:m-2<cr>`z
 vmap <C-J> :m'>+<cr>`<my`>mzgv`yo`z
@@ -493,3 +494,7 @@ set grepprg=grep\ -nH\ $*
 let g:tex_flavor = "latex"
 
 autocmd FileType python ALEDisable
+
+" Copilot settings
+imap <A-j> <Plug>(copilot-previous)
+imap <A-k> <Plug>(copilot-next)
