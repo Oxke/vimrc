@@ -209,7 +209,10 @@ aug arrows_markdown
 aug end
 
 " Abbreviazioni varie
-autocmd Filetype tex inoremap \ss \sqsubseteq
+aug krr
+    autocmd Filetype tex inoremap \ss \sqsubseteq
+aug end
+
 
 " Abbreviazioni mrg, markdown
 autocmd Filetype markdown inoremap qw<Space> tra l'altro<Space>
@@ -302,6 +305,32 @@ map <leader>. :wa<cr>
 
 " Quickly commits changes on git
 map <leader>gg :!git commit -a -m "AutoCommit" && git push<cr>
+
+" tex
+au FileType tex inoremap <leader>neq \begin{equation}<cr>\end{equation}<esc>ko
+au FileType tex inoremap <leader>eq \begin{equation*}<cr>\end{equation*}<esc>ko
+au FileType tex inoremap <leader>nal \begin{align}<cr>\end{align}<esc>ko
+au FileType tex inoremap <leader>al \begin{align*}<cr>\end{align*}<esc>ko
+au FileType tex inoremap <leader>thm \begin{theorem}<cr>\end{theorem}<esc>ko
+au FileType tex inoremap <leader>lem \begin{lemma}<cr>\end{lemma}<esc>ko
+au FileType tex inoremap <leader>prp \begin{proposition}<cr>\end{proposition}<esc>ko
+au FileType tex inoremap <leader>cor \begin{corollary}<cr>\end{corollary}<esc>ko
+au FileType tex inoremap <leader>def \begin{definition}<cr>\end{definition}<esc>ko
+au FileType tex inoremap <leader>ex \begin{example}<cr>\end{example}<esc>ko
+au FileType tex inoremap <leader>rma \begin{remark}<cr>\end{remark}<esc>ko
+au FileType tex inoremap <leader>pf \begin{proof}<cr>\end{proof}<esc>ko
+
+aug Physics
+    au!
+    au FileType tex inoremap <buffer> < \langle 
+    au FileType tex inoremap <buffer> > \rangle
+aug noPhysics
+    au!
+    au FileType tex inoremap <buffer> < <
+    au FileType tex inoremap <buffer> > >
+aug end
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
