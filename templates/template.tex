@@ -9,8 +9,18 @@
 \usepackage{cancel}
 \usepackage{xcolor}
 \usepackage{tikz}
-
 \usepackage{tcolorbox}
+\usepackage{import}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+\newcommand{\incfig}[2][1]{%
+    \def\svgwidth{#1\columnwidth}
+    \import{./figures/}{#2.pdf_tex}
+}
+
+\pdfsuppresswarningpagegroup=1
 
 \newcounter{theo}[section]\setcounter{theo}{0}
 \renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
