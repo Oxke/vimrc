@@ -1,0 +1,163 @@
+global !p
+def math():
+    return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+def comment(): 
+    return vim.eval('vimtex#syntax#in_comment()') == '1'
+def env(name):
+    [x,y] = vim.eval("vimtex#env#is_inside('" + name + "')") 
+    return x != '0' and x != '0'
+endglobal
+
+snippet today "Date" w
+`date +%F`
+endsnippet
+
+snippet beg "begin {} ... end" w
+\begin{$1}
+$2
+\end{$1}}$0
+endsnippet
+
+snippet $ "Inline Math" iA
+\\($1\\)$0
+endsnippet
+
+snippet m "Math" w
+\\[$1\\]$0
+endsnippet
+
+snippet // "Fraction" iA
+\\frac{$1}{$2}$0
+endsnippet
+
+snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "Fraction" wrA
+\\frac{`!p snip.rv = match.group(1)`}{$1}$0
+endsnippet
+
+# priority 1000
+snippet '^.*\)/' "() Fraction" wrA
+`!p
+stripped = match.string[:-1]
+depth = 0
+i = len(stripped) - 1
+while True:
+	if stripped[i] == ')': depth += 1
+	if stripped[i] == '(': depth -= 1
+	if depth == 0: break;
+	i -= 1
+snip.rv = stripped[0:i] + "\\frac{" + stripped[i+1:-1] + "}"
+`{$1}$0
+endsnippet
+
+snippet sympy "sympy block " w
+sympy $1 sympy$0
+endsnippet
+
+priority 5
+snippet 'sympy(.*)sympy' "evaluate sympy" wr
+`!p
+from sympy import *
+x, y, z, t = symbols('x y z t')
+k, m, n = symbols('k m n', integer=True)
+f, g, h = symbols('f g h', cls=Function)
+init_printing()
+snip.rv = eval('latex(' + match.group(1).replace('\\', '') \
+    .replace('^', '**') \
+    .replace('{', '(') \
+    .replace('}', ')') + ')')
+`
+endsnippet
+
+priority 2
+snippet "bar" "bar" riA
+\overline{$1}$0
+endsnippet
+
+priority 3
+snippet "([a-zA-Z])bar" "bar" riA
+\overline{`!p snip.rv=match.group(1)`}
+endsnippet
+
+priority 2
+snippet "hat" "hat" riA
+\hat{$1}$0
+endsnippet
+
+priority 3
+snippet "([a-zA-Z])hat" "hat" riA
+\hat{`!p snip.rv=match.group(1)`}
+endsnippet
+
+priority 2
+snippet "vec" "vec" riA
+\vec{$1}$0
+endsnippet
+
+priority 3
+snippet "([a-zA-Z])vec" "vec" riA
+\vec{`!p snip.rv=match.group(1)`}
+endsnippet
+
+snippet int "integral" wA
+\int $1 d$2$0
+endsnippet
+
+priority 1
+snippet fun "function" w
+\(${1:f}: $2 \to $3\)$0
+endsnippet
+
+priority 2
+context math()
+snippet fun "function" wA
+${1:f}: $2 \to $3$0
+endsnippet
+
+# Sets
+snippet RR "Real Numbers" wA
+\mathbb{R}$0
+endsnippet
+
+snippet QQ "Rational Numbers" wA
+\mathbb{Q}$0
+endsnippet
+
+snippet ZZ "Integers" wA
+\mathbb{Z}$0
+endsnippet
+
+snippet NN "Natural Numbers" wA
+\mathbb{N}$0
+endsnippet
+
+snippet CC "Complex Numbers" wA
+\mathbb{C}$0
+endsnippet
+
+snippet HH "Quaternions" wA
+\mathbb{H}$0
+endsnippet
+
+snippet KK "Field" wA
+\mathbb{K}$0
+endsnippet
+
+context math()
+snippet !> "maps to" wA
+\mapsto$0
+endsnippet
+
+priority 1
+snippet iff "if and only if" wA
+\(\iff$1\)$0
+endsnippet
+
+priority 2
+context math()
+snippet iff "if and only if" wA
+\iff$0
+endsnippet
+
+snippet sqrt "square root" wA
+\sqrt{$1}$0
+endsnippet

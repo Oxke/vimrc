@@ -1,4 +1,4 @@
-source ~/.config/nvim/.vimrc
+source ~/.config/nvim/vimrc
 
 lua << END
 require('lualine').setup {
