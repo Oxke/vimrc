@@ -22,8 +22,8 @@ let g:clipboard = {
             \}
 
 " Avoid garbled characters in Chinese language windows OS
-let $LANG='en'
-set langmenu=en
+"let $LANG='en'
+"set langmenu=en
 
 " Turn on the Wild menu
 set wildmenu
