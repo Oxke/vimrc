@@ -520,3 +520,5 @@ inoremap <C-f> <Esc>: silent exec '.!inkscape-figures create "'.getline('.').'" 
 nnoremap <C-f> : silent exec '!inkscape-figures edit "'.b:vimtex.root.'/figures/" > /dev/null 2>&1 &'<CR><CR>:redraw!<CR>
 
 let g:vimtex_view_method = 'zathura'
+let g:latex_view_general_viewer = 'zathura'
+let g:vimtex_compiler_progname = 'nvr'
