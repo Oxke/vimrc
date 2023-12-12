@@ -217,10 +217,6 @@ aug mrgMrkdown
     au Filetype markdown nnoremap <Leader>. A.<esc>
 aug end
 
-" per CL, empty clause □
-autocmd Filetype txt imap [] □
-autocmd Filetype markdown imap [] □
-autocmd Filetype tex imap [] \square
  
 " Save, execute, compile
 aug SaveExecuteCompile
@@ -234,18 +230,18 @@ aug SaveExecuteCompile
 
     au Filetype bf nmap <leader>b :BrainFuck<cr>
 
-    au BufWritePost *.tex silent! execute "!pdflatex % >/dev/null 2>&1 && killall -SIGHUP llpp" | redraw!
+    " au BufWritePost *.tex silent! execute "!pdflatex % >/dev/null 2>&1 && killall -SIGHUP llpp" | redraw!
 aug end
-"autocmd BufWritePost *.tex call ReDrawPdf()
 
-"let g:pidpdf = system('(llpp %:r.pdf >/dev/null 2>&1 &) && echo $!')
-"function! ReDrawPdf ()
-"    if !g:pidpdf
-"        let g:pidpdf = system('(llpp %:r.pdf >/dev/null 2>&1 &) && echo $!')
-"    else
-"        silent! execute "!kill -SIGHUP " + g:pidpdf
-"    endif
-"endfunction
+" let g:pidpdf = system((llpp %:r.pdf >/dev/null 2>&1 &) && echo $!)
+" function! ReDrawPdf ()
+"     if !g:pidpdf
+"         let g:pidpdf = system((llpp %:r.pdf >/dev/null 2>&1 &) && echo $!)
+"     else
+"         silent! execute "!kill -SIGHUP " + g:pidpdf
+"     endif
+" endfunction
+" autocmd BufWritePost *.tex call ReDrawPdf()
 
 " On new file opens template
 autocmd BufNewFile * silent! 0r ~/.config/nvim/templates/template.%:e
@@ -436,7 +432,8 @@ Plug 'tpope/vim-surround'
 Plug 'KeitaNakamura/tex-conceal.vim'
 call plug#end()
 
-" tex-conceal
+filetype plugin indent on
+
 set conceallevel=1
 let g:tex_conceal='abdmg'
 hi Conceal ctermbg=none
@@ -461,11 +458,15 @@ autocmd filetype markdown nnoremap <leader>g :Goyo<cr>
 "autocmd! User GoyoLeave Limelight!
 
 " ultisnips
-let g:UltiSnipsSnippetsDir = "~/.config/nvim/UltiSnips"
+let g:UltiSnipsSnippetDirectories = ["UltiSnips", expand('%:p:h')]
+let g:UltiSnipsSnippetsDir = "UltiSnips"
 let g:UltiSnipsExpandTrigger="<c-l>"
 let g:UltiSnipsJumpForwardTrigger="<c-l>"
 let g:UltiSnipsJumpBackwardTrigger="<c-h>"
 let g:UltiSnipsEditSplit="vertical"
+
+nmap <leader>asdf :UltiSnipsEdit<cr>
+nmap <leader>fdsa :vsplit %:e.snippets<cr>
  
 " vim-isort
 let g:vim_isort_map = '<C-i>'
@@ -482,7 +483,6 @@ let g:neomake_cpp_clang_maker = {'exe': 'clang'}
 let g:neomake_cpp_clang_args = ['-std=c++14', '-Wall', '-Wextra', '-Weverything', '-pedantic']
 call neomake#configure#automake('nrwi', 500)
 
-filetype plugin on
 let g:instant_markdown_slow = 1
 "let g:instant_markdown_autostart = 0
 "let g:instant_markdown_open_to_the_world = 1
@@ -518,3 +518,5 @@ imap <A-k> <Plug>(copilot-next)
 " vimtex watch figures settings
 inoremap <C-f> <Esc>: silent exec '.!inkscape-figures create "'.getline('.').'" "'.b:vimtex.root.'/figures/"'<CR><CR>:w<CR>
 nnoremap <C-f> : silent exec '!inkscape-figures edit "'.b:vimtex.root.'/figures/" > /dev/null 2>&1 &'<CR><CR>:redraw!<CR>
+
+let g:vimtex_view_method = 'zathura'

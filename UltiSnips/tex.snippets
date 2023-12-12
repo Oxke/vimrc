@@ -13,7 +13,7 @@ def not_math():
 endglobal
 
 snippet today "Date" w
-`date +%F`
+`date +"%B %-d, %Y"`
 endsnippet
 
 snippet beg "begin {} ... end" w
@@ -68,7 +68,7 @@ endsnippet
 
 context "math()"
 snippet () "left( right)" iA
-\left( ${1:${VISUAL}} \right) $0
+\left( $1 \right) $0
 endsnippet
 
 snippet lr "left( right)" i
@@ -172,6 +172,7 @@ snippet "([a-zA-Z])vec" "vec" riA
 \vec{`!p snip.rv=match.group(1)`}
 endsnippet
 
+context math()
 snippet int "integral" wA
 \int $1 d$2$0
 endsnippet
@@ -409,6 +410,11 @@ snippet item "Itemize" bA
 \end{itemize}
 endsnippet
 
+context env('itemize') or env('enumerate')
+snippet -- "Item" iA
+\item $0
+endsnippet
+
 snippet => "implies" Ai
 \implies
 endsnippet
@@ -538,4 +544,28 @@ snippet ali "Align" bA
 \begin{align*}
 	${1:${VISUAL}}
 \end{align*}
+endsnippet
+
+context math()
+snippet <> "Diamond" iA
+\Diamond$0
+endsnippet
+
+context math()
+snippet [] "Square box" iA 
+\square$0
+endsnippet
+
+context math()
+snippet phi "varphi" iA
+\\varphi$0
+endsnippet
+
+context math()
+snippet et "logical and" iA
+\\land$0
+endsnippet
+
+snippet p "paragraph" w
+\paragraph{$1}$0
 endsnippet
