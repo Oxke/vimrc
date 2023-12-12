@@ -433,7 +433,13 @@ Plug 'lervag/vimtex'
 Plug 'jayli/vim-brainfuck'
 Plug 'jupyter-vim/jupyter-vim'
 Plug 'tpope/vim-surround'
+Plug 'KeitaNakamura/tex-conceal.vim'
 call plug#end()
+
+" tex-conceal
+set conceallevel=1
+let g:tex_conceal='abdmg'
+hi Conceal ctermbg=none
 
 " colorscheme
 set termguicolors
