@@ -278,6 +278,12 @@ snippet __ "subscript" iA
 _{$1}$0
 endsnippet
 
+context math()
+snippet "(\w)(\d)" "smart subscript" iA
+`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}$0
+endsnippet
+
+
 snippet ooo "\infty" iA
 \infty
 endsnippet
@@ -553,7 +559,7 @@ endsnippet
 
 context math()
 snippet [] "Square box" iA 
-\square$0
+\\square$0
 endsnippet
 
 context math()
@@ -566,6 +572,15 @@ snippet et "logical and" iA
 \\land$0
 endsnippet
 
+context math()
+snippet vel "logical or" iA
+\\lor$0
+endsnippet
+
 snippet p "paragraph" w
 \paragraph{$1}$0
+endsnippet
+
+snippet mp "Margin paragraph" w
+\marginpar{$1}$0
 endsnippet
