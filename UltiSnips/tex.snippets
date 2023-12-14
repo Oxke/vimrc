@@ -12,7 +12,7 @@ def not_math():
 	return not math()
 endglobal
 
-snippet today "Date" w
+snippet "\\?today" "Date" rw
 `date +"%B %-d, %Y"`
 endsnippet
 
@@ -23,8 +23,8 @@ snippet beg "begin {} ... end" w
 $0
 endsnippet
 
-snippet $ "Inline Math" iA
-\\($1\\)$0
+snippet mk "Inline Math" iA
+\($1\) $0
 endsnippet
 
 snippet m "Math" w
@@ -233,10 +233,12 @@ snippet iff "if and only if" wA
 \iff$0
 endsnippet
 
+context math()
 snippet sqrt "square root" wA
 \sqrt{$1}$0
 endsnippet
 
+context math()
 snippet "(\w)?mat" "matrix" riA
 \begin{`!p snip.rv = match.group(1) if match.group(1) else ""`matrix}
 	$1
@@ -279,13 +281,20 @@ _{$1}$0
 endsnippet
 
 context math()
-snippet "(\w)(\d)" "smart subscript" iA
+snippet "(\w)(\d)" "smart subscript" riA
 `!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}$0
 endsnippet
 
+snippet .. "dots" iA
+\dots
+endsnippet
 
 snippet ooo "\infty" iA
 \infty
+endsnippet
+
+snippet != "neq" iA
+\neq
 endsnippet
 
 snippet <= "leq" iA
@@ -318,23 +327,8 @@ endsnippet
 
 
 context "math()"
-snippet xii "xi" iA
-x_{i}
-endsnippet
-
-context "math()"
-snippet yii "yi" iA
-y_{i}
-endsnippet
-
-context "math()"
-snippet xjj "xj" iA
-x_{j}
-endsnippet
-
-context "math()"
-snippet yjj "yj" iA
-y_{j}
+snippet "(\w)([ij]{2})" "Smart subscript for i and j" riA
+`!p snip.rv = match.group(1)`_{`!p snip.rv = "".join(set(match.group(2)))`}$0
 endsnippet
 
 context "math()"
@@ -474,10 +468,9 @@ snippet set "set" wA
 \\{$1\\} $0
 endsnippet
 
-
 context "math()"
 snippet cc "subset" Ai
-\subset 
+\subseteq 
 endsnippet
 
 snippet notin "not in " iA
@@ -558,7 +551,7 @@ snippet <> "Diamond" iA
 endsnippet
 
 context math()
-snippet [] "Square box" iA 
+snippet always "Square box" iA 
 \\square$0
 endsnippet
 
@@ -584,3 +577,8 @@ endsnippet
 snippet mp "Margin paragraph" w
 \marginpar{$1}$0
 endsnippet
+
+snippet qwe "Quotes" iA
+\`\`$1''$0
+endsnippet
+
