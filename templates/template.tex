@@ -1,6 +1,8 @@
 \documentclass{article}
 \usepackage{layout}
 \usepackage[a4paper, total={5in,9in}]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
 \usepackage{mathtools}
 \usepackage{amsthm}
 \usepackage[framemethod=TikZ]{mdframed}
@@ -14,6 +16,7 @@
 \usepackage{pdfpages}
 \usepackage{transparent}
 \usepackage{xcolor}
+\usepackage{enumitem}
 
 \newcommand{\incfig}[2][1]{%
     \def\svgwidth{#1\columnwidth}
@@ -32,13 +35,13 @@
         frametitle={
             \tikz[baseline=(current bounding box.east),outer sep=0pt]
             \node[anchor=east,rectangle,fill=blue!20,rounded corners=5pt]
-            {\strut Theorem~\thetheo};}
+            {\strut Teorema~\thetheo};}
         }
     }{\mdfsetup{
         frametitle={
             \tikz[baseline=(current bounding box.east),outer sep=0pt]
             \node[anchor=east,rectangle,fill=blue!20,rounded corners=5pt]
-            {\strut Theorem~\thetheo:~#1};}
+            {\strut Teorema~\thetheo:~#1};}
         }
     }
     \mdfsetup{
@@ -52,16 +55,16 @@
 
 \theoremstyle{plain}
 \newtheorem{lemma}[theo]{Lemma}
-\newtheorem{corollary}{Corollary}[theo]
-\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollario}[theo]
+\newtheorem{proposition}[theo]{Proposizione}
 
 \theoremstyle{definition}
-\newtheorem{definition}[theo]{Definition}
-\newtheorem{example}{Example}
+\newtheorem{definition}{Definizione}
+\newtheorem{example}{Esempio}
 
 \theoremstyle{remark}
-\newtheorem*{note}{Note}
-\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Nota}
+\newtheorem*{remark}{Osservazione}
 
 \newtcolorbox{notebox}{
   colback=gray!10,
