@@ -141,7 +141,18 @@ snip.rv = eval('latex(' + match.group(1).replace('\\', '') \
 endsnippet
 
 priority 2
-snippet "bar" "bar" riA
+snippet "([a-zA-Z])dot" "bar" riA
+\dot{`!p snip.rv=match.group(1)`}
+endsnippet
+
+priority 3
+snippet "([a-zA-Z])ddot" "bar" riA
+\ddot{`!p snip.rv=match.group(1)`}
+endsnippet
+
+priority 2
+context math()
+snippet bar "bar" iA
 \overline{$1}$0
 endsnippet
 
@@ -160,6 +171,12 @@ priority 3
 context math()
 snippet "([a-zA-Z])hat" "hat" riA
 \hat{`!p snip.rv=match.group(1)`}
+endsnippet
+
+priority 3
+context math()
+snippet "([a-zA-Z])~" "tilde" riA
+\tilde{`!p snip.rv=match.group(1)`}
 endsnippet
 
 priority 2
@@ -351,6 +368,11 @@ snippet mbb "mathbb" iA
 \mathbb{$1}$0
 endsnippet
 
+context "math()"
+snippet mbf "mathbb" iA
+\mathbf{$1}$0
+endsnippet
+
 context not_math()
 snippet BB "bold" iA
 \textbf{${1:${VISUAL}}}$0
@@ -398,35 +420,64 @@ snippet '(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta|int)' "ln" rw
 \\`!p snip.rv = match.group(1)`
 endsnippet
 
+context not math()
+snippet "^([\.\(\-])?([1aAIi])([\.\)\-]) " "smart enum numbers" rA
+\begin{enumerate}[label = `!p
+indexes = {
+	'1': '\\arabic*',
+	'a': '\\alph*',
+	'A': '\\Alph*',
+	'i': '\\roman*',
+	'I': '\\Roman*',
+}
+snip.rv = (match.group(1) if match.group(1) else '') + indexes[match.group(2)] + match.group(3)
+`]
+	\item $1
+\end{enumerate}
+$0
+endsnippet
+
 snippet enum "Enumerate" bA
 \begin{enumerate}
-	\item $0
+	\item $1
 \end{enumerate}
+$0
 endsnippet
 
 snippet item "Itemize" bA
 \begin{itemize}
-	\item $0
+	\item $1
 \end{itemize}
+$0
 endsnippet
 
+priority 25
+context not math()
+snippet "^- " "Itemize" rA
+\begin{itemize}[label = --]
+	\item $1
+\end{itemize}
+$0
+endsnippet
+
+priority 50
 context env('itemize') or env('enumerate')
 snippet -- "Item" iA
 \item $0
 endsnippet
 
 snippet => "implies" Ai
-\implies
+\implies $0
 endsnippet
 
 snippet =< "implied by" Ai
-\impliedby
+\impliedby $0
 endsnippet
 
 priority 100
 context "math()"
 snippet -> "to" iA
-\to 
+\to $0
 endsnippet
 
 priority 200
@@ -561,12 +612,17 @@ snippet phi "varphi" iA
 endsnippet
 
 context math()
-snippet et "logical and" iA
+snippet eps "varphi" iA
+\\varepsilon$0
+endsnippet
+
+context math()
+snippet et "logical and" i
 \\land$0
 endsnippet
 
 context math()
-snippet vel "logical or" iA
+snippet vel "logical or" i
 \\lor$0
 endsnippet
 
@@ -582,3 +638,7 @@ snippet qwe "Quotes" iA
 \`\`$1''$0
 endsnippet
 
+context math()
+snippet part "Partial derivative" iA
+\\frac{\\partial $1}{\\partial $2}$0
+endsnippet
