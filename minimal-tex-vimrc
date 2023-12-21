@@ -1,0 +1,63 @@
+" => VIM user interface
+let mapleader = ","
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors and Fonts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable syntax highlighting
+filetype plugin indent on
+syntax enable
+set encoding=utf8
+set ffs=unix,dos,mac
+
+set cmdheight=0
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Text, tab and indent related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use spaces instead of tabs
+set expandtab
+
+" Be smart when using tabs 
+set smarttab
+
+" 1 tab == 4 spaces
+set shiftwidth=4
+set tabstop=4
+set lbr
+set tw=80
+set ai "Auto indent
+set si "Smart indent
+set wrap "Wrap lines
+"
+
+nnoremap <cr> O<esc>j
+
+" saving using ,m (file) and ,. (all files)
+map <leader>m :w<cr>
+map <leader>. :wa<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Plugins
+call plug#begin()
+Plug 'SirVer/ultisnips'
+Plug 'lervag/vimtex'
+call plug#end()
+
+filetype plugin indent on
+
+" ultisnips
+let g:UltiSnipsSnippetDirectories = ["UltiSnips", expand('%:p:h')]
+let g:UltiSnipsSnippetsDir = "UltiSnips"
+let g:UltiSnipsExpandTrigger="<c-l>"
+let g:UltiSnipsJumpForwardTrigger="<c-l>"
+let g:UltiSnipsJumpBackwardTrigger="<c-h>"
+let g:UltiSnipsEditSplit="vertical"
+
+nmap <leader>asdf :UltiSnipsEdit<cr>
+nmap <leader>fdsa :vsplit %:e.snippets<cr>
+ 
+autocmd BufEnter * startinsert | call cursor(1, 2)

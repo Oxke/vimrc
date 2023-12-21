@@ -31,6 +31,9 @@ set wildmenu
 " Always show current position
 set ruler
 
+" removes command bar, beautiful thing (still accessible but replaces the status bar)
+set cmdheight=0
+
 " A buffer becomes hidden when it is abandoned
 set hid
 
@@ -79,32 +82,6 @@ set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
-" Limelight 
-
-" Color name (:help cterm-colors) or ANSI code
-let g:limelight_conceal_ctermfg = 'gray'
-let g:limelight_conceal_ctermfg = 240
-
-" Color name (:help gui-colors) or RGB color
-let g:limelight_conceal_guifg = 'DarkGray'
-let g:limelight_conceal_guifg = '#777777'
-
-" Default: 0.5
-let g:limelight_default_coefficient = 0.2
-
-" Number of preceding/following paragraphs to include (default: 0)
-let g:limelight_paragraph_span = 0
-
-" Beginning/end of paragraph
-"   When there's no empty line between the paragraphs
-"   and each paragraph starts with indentation
-let g:limelight_bop = '^\s'
-let g:limelight_eop = '\ze\n^\s'
-
-" Highlighting priority (default: 10)
-"   Set it to -1 not to overrule hlsearch
-let g:limelight_priority = -1
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -118,7 +95,7 @@ set smarttab
 set shiftwidth=4
 set tabstop=4
 
-autocmd Filetype html Markdown setlocal ts=2 sw=2 sts=2
+au Filetype html Markdown setlocal ts=2 sw=2 sts=2
 
 " Linebreak on 500 characters
 set lbr
@@ -164,6 +141,7 @@ map <leader>bd :Bclose<cr>:tabclose<cr>gT
 " Close all the buffers
 map <leader>ba :bufdo bd<cr>
 
+" move between tabs
 map <leader>l gt
 map <leader>h gT
 
@@ -253,7 +231,7 @@ au TabLeave * let g:lasttab = tabpagenr()
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
-map <leader>te :tabedit <C-r>=expand("%:p:h")<cr>/
+map <leader>te :tabe <c-r>=expand("%:p:h")<cr><cr>
 
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -289,7 +267,7 @@ fun! CleanExtraSpaces()
 endfun
 
 if has("autocmd")
-    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
+    au BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
 endif
 
 " saving using ,m (file) and ,. (all files)
@@ -335,10 +313,10 @@ map <leader>s? z=
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Quickly open a buffer for scribble
-map <leader>q :e ~/buffer<cr>
+" map <leader>q :e ~/buffer<cr>
 
 " Quickly open a markdown buffer for scribble
-map <leader>x :e ~/buffer.md<cr>
+" map <leader>x :e ~/buffer.md<cr>
 
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
@@ -415,19 +393,19 @@ Plug 'SirVer/ultisnips'
 Plug 'tmhedberg/SimpylFold'
 Plug 'junegunn/fzf', {'do': {-> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'fisadev/vim-isort'
+" Plug 'fisadev/vim-isort'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'scrooloose/nerdcommenter'
-Plug 'sbdchd/neoformat'
+" Plug 'scrooloose/nerdcommenter'
+" Plug 'sbdchd/neoformat'
 Plug 'scrooloose/nerdtree'
 Plug 'github/copilot.vim'
 Plug 'neomake/neomake'
 Plug 'lervag/vimtex'
-"Plug 'vim-latex/vim-latex'
+" Plug 'vim-latex/vim-latex'
 Plug 'jayli/vim-brainfuck'
-Plug 'jupyter-vim/jupyter-vim'
+" Plug 'jupyter-vim/jupyter-vim'
 Plug 'tpope/vim-surround'
 Plug 'KeitaNakamura/tex-conceal.vim'
 call plug#end()
@@ -503,13 +481,16 @@ let g:ale_html_tidy_executable = "D://TidyHtml//tidy-5.6.0-vc14-64b//bin//tidy.e
  \   'html': ['tidy'],
  \   'javascript': ['eslint'],
  \   'php': [''],
- \   'python': ['flake8'],
+ \   'python': [''],
  \}
+nmap <leader>gd :ALEGoToDefinition<cr>
+nmap <leader>fr :ALEFindReferences<cr>
+
 
 set grepprg=grep\ -nH\ $*
 let g:tex_flavor = "latex"
 
-autocmd FileType python ALEDisable
+" autocmd FileType python ALEDisable
 
 " Copilot settings
 imap <A-j> <Plug>(copilot-previous)
