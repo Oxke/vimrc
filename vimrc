@@ -196,20 +196,6 @@ aug mrgMrkdown
 aug end
 
  
-" Save, execute, compile
-aug SaveExecuteCompile
-    au!
-    au Filetype py nmap <S-CR> :w<cr>:!python %<cr>
-    au Filetype py nmap <S-CR> :w<cr>:!time python %<cr>
-
-    au Filetype clj nmap <leader>z :w<cr>:!z3 %<cr>
-
-    au Filetype cpp nmap <leader>c :w<cr>:!g++ -o %:r % && ./%:r<cr> 
-
-    au Filetype bf nmap <leader>b :BrainFuck<cr>
-
-    " au BufWritePost *.tex silent! execute "!pdflatex % >/dev/null 2>&1 && killall -SIGHUP llpp" | redraw!
-aug end
 
 " let g:pidpdf = system((llpp %:r.pdf >/dev/null 2>&1 &) && echo $!)
 " function! ReDrawPdf ()
@@ -219,7 +205,6 @@ aug end
 "         silent! execute "!kill -SIGHUP " + g:pidpdf
 "     endif
 " endfunction
-" autocmd BufWritePost *.tex call ReDrawPdf()
 
 " On new file opens template
 autocmd BufNewFile * silent! 0r ~/.config/nvim/templates/template.%:e
@@ -378,16 +363,16 @@ Plug 'wuelnerdotexe/vim-enfocado' " colorscheme
 Plug 'junegunn/goyo.vim' " zen mod
 " Plug 'junegunn/limelight.vim'
 Plug 'tyru/open-browser.vim' " open in browser link
-" Plug 'https://github.com/ap/vim-css-color'
+Plug 'https://github.com/ap/vim-css-color'
 Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'}
 Plug 'ncm2/ncm2' " completer
-Plug 'roxma/nvim-yarp'
-Plug 'ncm2/ncm2-bufword'
+" Plug 'roxma/nvim-yarp'
+" Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-jedi'
+" Plug 'ncm2/ncm2-jedi'
 " Plug 'ncm2/nmc2-pyclang' " c++ completer    
 Plug 'filipekiss/ncm2-look.vim'
-Plug 'ncm2/ncm2-ultisnips'
+" Plug 'ncm2/ncm2-ultisnips'
 Plug 'SirVer/ultisnips'
 " Plug 'honza/vim-snippets'
 Plug 'tmhedberg/SimpylFold'
@@ -403,7 +388,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'github/copilot.vim'
 Plug 'neomake/neomake'
 Plug 'lervag/vimtex'
-" Plug 'vim-latex/vim-latex'
 Plug 'jayli/vim-brainfuck'
 " Plug 'jupyter-vim/jupyter-vim'
 Plug 'tpope/vim-surround'
@@ -418,15 +402,20 @@ hi Conceal ctermbg=none
 
 " colorscheme
 set termguicolors
-set background=dark
-let g:enfocado_style = 'neon'
 augroup enfocado_customization
     autocmd!
-    autocmd ColorScheme enfocado ++nested highlight Normal ctermbg=000000 guibg=000000
+    autocmd ColorScheme enfocado ++nested
+        \ if &background ==# 'dark' |
+        \   highlight Normal ctermbg=black guibg=black |
+        \ endif
 augroup END
 colorscheme enfocado
 
 let g:airline_theme = 'enfocado'
+
+" Change easily from light to dark
+nmap <leader>bgd :set bg=dark<cr>
+nmap <leader>bgl :set bg=light<cr>
 
 " Plugins remappings
 autocmd filetype markdown nnoremap <leader>g :Goyo<cr>
@@ -450,9 +439,9 @@ nmap <leader>fdsa :vsplit %:e.snippets<cr>
 let g:vim_isort_map = '<C-i>'
 
 " ncm2
-autocmd BufEnter * call ncm2#enable_for_buffer()
-set completeopt=noinsert,menuone,noselect
-let g:python3_host_prog='/usr/bin/python'
+" autocmd BufEnter * call ncm2#enable_for_buffer()
+" set completeopt=noinsert,menuone,noselect
+" let g:python3_host_prog='/usr/bin/python'
 
 " neomake
 let g:neomake_python_enabled_makers = ['pylint']
@@ -502,3 +491,20 @@ nnoremap <C-f> : silent exec '!inkscape-figures edit "'.b:vimtex.root.'/figures/
 
 let g:vimtex_view_method = 'zathura'
 let g:latex_view_general_viewer = 'zathura'
+
+" Save, execute, compile
+aug SaveExecuteCompile
+    au!
+    au Filetype python nnoremap <s-cr> :w<cr>:!python %<cr>
+    au Filetype python nnoremap <a-cr> :w<cr>:!time python %<cr>
+
+    au Filetype clj nnoremap <s-cr> :w<cr>:!z3 %<cr>
+    au Filetype clj nnoremap <a-cr> :w<cr>:!time z3 %<cr>
+
+    au Filetype cpp nnoremap <s-cr> :w<cr>:!g++ -o %:r % && ./%:r<cr> 
+    au Filetype cpp nnoremap <a-cr> :w<cr>:!time g++ -o %:r % && ./%:r<cr> 
+
+    au Filetype brainfuck nnoremap <s-cr> :w<cr>:BrainFuck<cr>
+    au Filetype brainfuck nnoremap <a-cr> :w<cr>:time BrainFuck<cr>
+aug end
+

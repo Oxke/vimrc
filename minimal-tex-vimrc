@@ -33,10 +33,6 @@ set wrap "Wrap lines
 
 nnoremap <cr> O<esc>j
 
-" saving using ,m (file) and ,. (all files)
-map <leader>m :w<cr>
-map <leader>. :wa<cr>
-
 """""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""
@@ -61,3 +57,27 @@ nmap <leader>asdf :UltiSnipsEdit<cr>
 nmap <leader>fdsa :vsplit %:e.snippets<cr>
  
 autocmd BufEnter * startinsert | call cursor(1, 2)
+
+" never save the file
+set nobackup
+set nowritebackup
+
+" no swap
+set noswapfile
+
+" to not save file when closing but yoinking it
+autocmd BufEnter temp.tex nnoremap ZZ :%y<cr>:q!<cr>
+
+set clipboard+=unnamedplus
+let g:clipboard = {
+            \  'name': 'myClipboard',
+            \  'copy': {
+            \     '+': 'xclip -selection clipboard',
+            \     '*': 'xclip -selection clipboard',
+            \   },
+            \  'paste': {
+            \     '+': 'xclip -o -selection clipboard',
+            \     '*': 'xclip -o -selection clipboard',
+            \  },
+            \  'cache_enabled': 1,
+            \}
