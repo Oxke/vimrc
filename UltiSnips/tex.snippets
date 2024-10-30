@@ -68,7 +68,7 @@ endsnippet
 
 context "math()"
 snippet uio "left( right)" iA
-\left( $1 \right) $0
+{\left( $1 \right)} $0
 endsnippet
 
 snippet lr "left( right)" i
@@ -266,6 +266,11 @@ snippet sqrt "square root" wA
 endsnippet
 
 context math()
+snippet  "(n|\d)sqrt" "n-th root" rwA
+\sqrt[`!p snip.rv = match.group(1)`]{$1}$0
+endsnippet
+
+context math()
 snippet "([bp])?mat" "matrix" riA
 \begin{`!p snip.rv = match.group(0) if match.group(0) else ""`rix}
 	$1
@@ -313,6 +318,13 @@ snippet "([A-Za-z])(\d)" "smart subscript" riA
 `!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}$0
 endsnippet
 
+priority 10000
+context math()
+snippet gg "gamma" iA
+\gamma$0
+endsnippet
+
+priority 1000
 snippet .. "dots" iA
 \dots
 endsnippet
@@ -481,10 +493,12 @@ snippet -- "Item" iA
 endsnippet
 
 context math()
+priority 100
 snippet -- "Set minus" iA
 \\sminus $0
 endsnippet
 
+priority 1
 snippet => "implies" Ai
 \implies $0
 endsnippet
@@ -634,7 +648,7 @@ endsnippet
 
 context math()
 snippet phi "varphi" iA
-\\varphi$0
+\\varphi $0
 endsnippet
 
 context math()
@@ -721,4 +735,29 @@ priority 100
 context math()
 snippet tran "Transpose Matrix" iA
 \transp{$1} $0
+endsnippet
+
+context math()
+snippet ls "limsup" w
+\limsup_{${1:n \to \infty}} $0
+endsnippet
+
+context math()
+snippet li "liminf" w
+\liminf_{${1:n \to \infty}} $0
+endsnippet
+
+context math()
+snippet ww "omega" iA
+\omega$0
+endsnippet
+
+context math()
+snippet os "overset" w
+\overset{$2}{$1}$0
+endsnippet
+
+context math()
+snippet g "gamma" w
+\gamma$0
 endsnippet
