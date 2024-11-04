@@ -25,6 +25,9 @@
 
 \newcommand*{\transp}[2][-3mu]{\ensuremath{\mskip1mu\prescript{\smash{\mathrm t\mkern#1}}{}{\mathstrut#2}}}%
 
+% newcommand for span with langle and rangle around
+\newcommand{\Span}[1]{\left\langle#1\right\rangle}
+
 \newcommand{\incfig}[2][1]{%
     \def\svgwidth{#1\columnwidth}
     \import{./figures/}{#2.pdf_tex}
@@ -59,7 +62,7 @@
         innertopmargin=10pt,linecolor=blue!20,
         linewidth=2pt,topline=true,
         frametitleaboveskip=\dimexpr-\ht\strutbox\relax,
-        nobreak=true
+        % nobreak=false
     }
 \begin{mdframed}[]\relax}{
 \end{mdframed}}
@@ -90,11 +93,11 @@
 % \begin{mdframed}[]\relax}{
 % \end{mdframed}}
 
-\newtcolorbox{definition}[1][]{
+\newtcolorbox[auto counter, number within=section]{definition}[1][]{
     colframe=violet!0,
     coltitle=violet, % Title text color
     fonttitle=\bfseries, % Title font
-    title={Definizione~\thetheo:~#1}, % Title format
+    title={Definizione~\thetcbcounter:~#1}, % Title format
     sharp corners, % Less rounded corners
     boxrule=0pt, % Line width of the box frame
     toptitle=1mm, % Distance from top to title
@@ -130,7 +133,7 @@
         innertopmargin=10pt,linecolor=green!20,
         linewidth=2pt,topline=true,
         frametitleaboveskip=\dimexpr-\ht\strutbox\relax,
-        nobreak=true
+        % nobreak=true
     }
 \begin{mdframed}[]\relax}{
 \end{mdframed}}

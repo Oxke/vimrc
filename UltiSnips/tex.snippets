@@ -23,8 +23,14 @@ snippet beg "begin {} ... end" w
 $0
 endsnippet
 
+context not_math()
 snippet mk "Inline Math" iA
 \($1\) $0
+endsnippet
+
+context math()
+snippet mk "Parenthesis" iA
+{($1)}$0
 endsnippet
 
 snippet m "Math" w
@@ -683,6 +689,11 @@ snippet part "Partial derivative" iA
 \\frac{\\partial $1}{\\partial $2}$0
 endsnippet
 
+context math()
+snippet ð "boundary symbol" iA
+\partial$0
+endsnippet
+
 priority 100
 context math()
 snippet pm "plus minus" iA
@@ -760,4 +771,14 @@ endsnippet
 context math()
 snippet g "gamma" w
 \gamma$0
+endsnippet
+
+context math()
+snippet l "lambda" w
+\lambda$0
+endsnippet
+
+context math()
+snippet === "equivalence" iA
+\equiv$0
 endsnippet
