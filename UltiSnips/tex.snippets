@@ -148,13 +148,13 @@ endsnippet
 
 context math()
 priority 2
-snippet "([a-zA-Z])dot" "bar" riA
+snippet "((?:\\[A-Za-z]+)?[A-Za-z])dot" "bar" riA
 \dot{`!p snip.rv=match.group(1)`}
 endsnippet
 
 context math()
 priority 3
-snippet "([a-zA-Z])ddot" "bar" riA
+snippet "((?:\\[A-Za-z]+)?[A-Za-z])ddot" "bar" riA
 \ddot{`!p snip.rv=match.group(1)`}
 endsnippet
 
@@ -165,7 +165,7 @@ snippet bar "bar" iA
 endsnippet
 
 priority 3
-snippet "([a-zA-Z])bar" "bar" riA
+snippet "((?:\\[A-Za-z]+)?[A-Za-z])bar" "bar" riA
 \overline{`!p snip.rv=match.group(1)`}
 endsnippet
 
@@ -177,13 +177,13 @@ endsnippet
 
 priority 3
 context math()
-snippet "([a-zA-Z])hat" "hat" riA
+snippet "((?:\\[A-Za-z]+)?[A-Za-z])hat" "hat" riA
 \hat{`!p snip.rv=match.group(1)`}
 endsnippet
 
-priority 3
+priority 11
 context math()
-snippet "([a-zA-Z])~" "tilde" riA
+snippet "((?:\\[A-Za-z]+)?[A-Za-z])~" "tilde" riA
 \tilde{`!p snip.rv=match.group(1)`}
 endsnippet
 
@@ -195,7 +195,7 @@ endsnippet
 
 priority 3
 context math()
-snippet "([a-zA-Z])vec" "vec" riA
+snippet "((?:\\[A-Za-z]+)?[A-Za-z])vec" "vec" riA
 \vec{`!p snip.rv=match.group(1)`}
 endsnippet
 
