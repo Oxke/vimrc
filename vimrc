@@ -277,6 +277,7 @@ aug Tex
     au FileType tex inoremap <leader>ex \begin{example}<cr>\end{example}<esc>ko
     au FileType tex inoremap <leader>rma \begin{remark}<cr>\end{remark}<esc>ko
     au FileType tex inoremap <leader>pf \begin{proof}<cr>\end{proof}<esc>ko
+    au FileType tex setlocal spell!
 aug end
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -392,6 +393,7 @@ Plug 'jayli/vim-brainfuck'
 " Plug 'jupyter-vim/jupyter-vim'
 Plug 'tpope/vim-surround'
 Plug 'KeitaNakamura/tex-conceal.vim'
+Plug 'ThePrimeagen/vim-be-good'
 call plug#end()
 
 filetype plugin indent on
