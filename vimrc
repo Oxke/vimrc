@@ -5,6 +5,8 @@ command! W execute 'w !sudo -S tee % > /dev/null' <bar> edit!
 let mapleader = ","
 set nu
 set rnu " relative numbers
+set so=5 " show 5 lines above and below
+set stal=1 " only show tabs when there are more than one
 
 " => NVIM
 set clipboard+=unnamedplus
@@ -136,21 +138,23 @@ nnoremap <cr> O<esc>j
 map <silent> <leader><cr> :noh<cr>
 
 " Close the current buffer
-map <leader>bd :Bclose<cr>:tabclose<cr>gT
+map <leader>bd :Bclose<cr>
 
 " Close all the buffers
 map <leader>ba :bufdo bd<cr>
 
-" move between tabs
-map <leader>l gt
-map <leader>h gT
+" Moving between buffers
+nmap <leader>; :b#<cr>
+nmap <leader>l :bnext<cr>
+nmap <leader>h :bprevious<cr>
+nmap <leader>n :enew<cr>
 
 " mappings for closing a session
 nnoremap <leader>Z :mks! ~/.config/nvim/Session.vim<cr>:qa<cr>
 
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
-map <leader>tvn :tabnew ~/.config/nvim/vimrc<cr> 
+map <leader>tvn :e ~/.config/nvim/vimrc<cr> 
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove<cr>
@@ -165,26 +169,9 @@ map <leader>tm :tabmove<cr>
 aug arrows_markdown
     au!
     au BufWritePost *.md %s/-->/\&rarr;/gce
-    " au BufWritePost * %s/<-/\&larr;/g
-    " au BufWritePost * %s/<->/\&harr;/g
-    " au BufWritePost * %s/->>/\&Rarr;/g
-    " au BufWritePost * %s/<<-/\&Larr;/g
-    " au BufWritePost * %s/>->/\&rarrtl;/g
-    " au BufWritePost * %s/<-</\&larrtl;/g
-    " au BufWritePost * %s/|->/\&mapstoright;/g
-    " au BufWritePost * %s/<-|/\&mapstoleft;/g
     au BufWritePost *.md %s/|->/\&rdsh;/gce
     au BufWritePost *.md %s/<=>/\&hArr;/gce
     au BufWritePost *.md %s/==>/\&rArr;/gce
-    " au BufWritePost * %s/<==/\&lArr;/g
-    " au BufWritePost * %s/====>/\&rAarr;/g
-    " au BufWritePost * %s/<====/\&lAarr;/g
-    " au BufWritePost * %s/-->/\&xrarr;/g
-    " au BufWritePost * %s/<--/\&xlarr;/g
-    " au BufWritePost * %s/<-->/\&xharr;/g
-    " au BufWritePost * %s/<==>/\&xhArr;/g
-    " au BufWritePost * %s/===>/\&xrArr;/g
-    " au BufWritePost * %s/<===/\&xlArr;/g
 aug end
 
 " Abbreviazioni mrg, markdown
@@ -194,17 +181,6 @@ aug mrgMrkdown
     au Filetype markdown inoremap Qw<Space> Tra l'altro<Space>
     au Filetype markdown nnoremap <Leader>. A.<esc>
 aug end
-
- 
-
-" let g:pidpdf = system((llpp %:r.pdf >/dev/null 2>&1 &) && echo $!)
-" function! ReDrawPdf ()
-"     if !g:pidpdf
-"         let g:pidpdf = system((llpp %:r.pdf >/dev/null 2>&1 &) && echo $!)
-"     else
-"         silent! execute "!kill -SIGHUP " + g:pidpdf
-"     endif
-" endfunction
 
 " On new file opens template
 autocmd BufNewFile * silent! 0r ~/.config/nvim/templates/template.%:e
@@ -222,15 +198,16 @@ map <leader>te :tabe <c-r>=expand("%:p:h")<cr><cr>
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Specify the behavior when switching between buffers
-try
-  set switchbuf=useopen,usetab,newtab
-  set stal=2
-catch
-endtry
+" i'm trying to learn to use buffers instead of tabs
+" so now i've commented this part out
+" try
+"   set switchbuf=useopen,usetab,newtab
+"   set stal=2
+" catch
+" endtry
 
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
@@ -252,7 +229,7 @@ fun! CleanExtraSpaces()
 endfun
 
 if has("autocmd")
-    au BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
+    au BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee,*.jl :call CleanExtraSpaces()
 endif
 
 " saving using ,m (file) and ,. (all files)
@@ -395,6 +372,7 @@ Plug 'jayli/vim-brainfuck'
 Plug 'tpope/vim-surround'
 Plug 'KeitaNakamura/tex-conceal.vim'
 Plug 'ThePrimeagen/vim-be-good'
+Plug 'JuliaEditorSupport/julia-vim'
 call plug#end()
 
 filetype plugin indent on
