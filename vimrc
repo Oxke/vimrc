@@ -99,7 +99,7 @@ set tabstop=4
 
 au Filetype html Markdown setlocal ts=2 sw=2 sts=2
 
-" Linebreak on 500 characters
+" Linebreak on 80 characters usually
 set lbr
 set tw=80
 autocmd Filetype html Markdown setlocal tw=1000
