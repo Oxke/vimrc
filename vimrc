@@ -242,6 +242,7 @@ map <leader>gg :!git commit -a -m "AutoCommit" && git push<cr>
 " tex
 aug Tex
     au!
+    au FileType tex nnoremap <leader>vv :VimtexView<cr>
     au FileType tex nnoremap <leader>vc :VimtexCompile<cr>
     au FileType tex inoremap <leader>neq \begin{equation}<cr>\end{equation}<esc>ko
     au FileType tex inoremap <leader>eq \begin{equation*}<cr>\end{equation*}<esc>ko
