@@ -277,7 +277,7 @@ snippet  "(n|\d)sqrt" "n-th root" rwA
 endsnippet
 
 context math()
-snippet "([bp])?mat" "matrix" riA
+snippet "([bp])?mat" "matrix" rw
 \begin{`!p snip.rv = match.group(0) if match.group(0) else ""`rix}
 	$1
 \end{`!p snip.rv = match.group(0) if match.group(0) else ""`rix}$0
@@ -367,12 +367,13 @@ snippet lim "lim" iA
 \lim_{${1:n \to \infty}} $0
 endsnippet
 
-priority 100
+priority 1
 context "math()"
 snippet "([A-Za-z])([ijnm]{2})" "Smart subscript for i and j" riA
 `!p snip.rv = match.group(1)`_{`!p snip.rv = "".join(set(match.group(2)))`}$0
 endsnippet
 
+priority 100
 context "math()"
 snippet xp1 "x" iA
 x_{${1:n}+1}
@@ -434,7 +435,7 @@ snippet norm "norm" iA
 \|$1\|$0
 endsnippet
 
-priority 100
+priority 101
 context "math()"
 snippet '(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp)' "ln" rwA
 \\`!p snip.rv = match.group(1)`
@@ -672,7 +673,7 @@ snippet vel "logical or" i
 \\lor$0
 endsnippet
 
-snippet p "paragraph" w
+snippet "^p" "paragraph" rw
 \paragraph{$1}$0
 endsnippet
 
@@ -792,3 +793,10 @@ context math()
 snippet mr "mathring" w
 \mathring{$1}$0
 endsnippet
+
+priority 1000
+context math()
+snippet poi "omega" wA
+\omega$0
+endsnippet
+
