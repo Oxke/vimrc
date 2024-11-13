@@ -434,6 +434,11 @@ snippet norm "norm" iA
 \|$1\|$0
 endsnippet
 
+context math()
+snippet lrn "bignorm" iA
+\left\|$1\right\|$0
+endsnippet
+
 priority 100
 context "math()"
 snippet '(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp)' "ln" rwA
@@ -672,7 +677,7 @@ snippet vel "logical or" i
 \\lor$0
 endsnippet
 
-snippet p "paragraph" w
+snippet "^p" "paragraph" wr
 \paragraph{$1}$0
 endsnippet
 
@@ -791,4 +796,9 @@ endsnippet
 context math()
 snippet mr "mathring" w
 \mathring{$1}$0
+endsnippet
+
+context math()
+snippet zz "zeta" wA
+\zeta$0
 endsnippet

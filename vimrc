@@ -412,10 +412,10 @@ let g:UltiSnipsSnippetsDir = "UltiSnips"
 let g:UltiSnipsExpandTrigger="<c-l>"
 let g:UltiSnipsJumpForwardTrigger="<c-l>"
 let g:UltiSnipsJumpBackwardTrigger="<c-h>"
-let g:UltiSnipsEditSplit="vertical"
+" let g:UltiSnipsEditSplit="vertical"
 
 nmap <leader>asdf :UltiSnipsEdit<cr>
-nmap <leader>fdsa :vsplit %:e.snippets<cr>
+nmap <leader>fdsa :e %:e.snippets<cr>
  
 " vim-isort
 let g:vim_isort_map = '<C-i>'
