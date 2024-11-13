@@ -364,7 +364,7 @@ endsnippet
 priority 200
 context "math()"
 snippet lim "lim" iA
-\lim_{${1:n \to \infty}} $0
+\lim_{${1:n} \to ${2:\infty}} $0
 endsnippet
 
 priority 1
@@ -435,16 +435,12 @@ snippet norm "norm" iA
 \|$1\|$0
 endsnippet
 
-<<<<<<< HEAD
 context math()
 snippet lrn "bignorm" iA
 \left\|$1\right\|$0
 endsnippet
 
-priority 100
-=======
 priority 101
->>>>>>> 64d81a4daa91ca998fef4ad124b3fc8a2e60d7d2
 context "math()"
 snippet '(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp)' "ln" rwA
 \\`!p snip.rv = match.group(1)`
@@ -682,11 +678,7 @@ snippet vel "logical or" i
 \\lor$0
 endsnippet
 
-<<<<<<< HEAD
 snippet "^p" "paragraph" wr
-=======
-snippet "^p" "paragraph" rw
->>>>>>> 64d81a4daa91ca998fef4ad124b3fc8a2e60d7d2
 \paragraph{$1}$0
 endsnippet
 
@@ -764,17 +756,22 @@ endsnippet
 
 context math()
 snippet ls "limsup" w
-\limsup_{${1:n \to \infty}} $0
+\limsup_{${1:n} \to ${2:\infty}} $0
 endsnippet
 
 context math()
 snippet li "liminf" w
-\liminf_{${1:n \to \infty}} $0
+\liminf_{${1:n} \to ${2:\infty}} $0
 endsnippet
 
 context math()
 snippet ww "omega" iA
 \omega$0
+endsnippet
+
+context math()
+snippet WW "Omega" iA
+\Omega$0
 endsnippet
 
 context math()
