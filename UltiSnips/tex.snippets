@@ -33,7 +33,7 @@ snippet mk "Parenthesis" iA
 {($1)}$0
 endsnippet
 
-snippet m "Math" w
+snippet "^ *m" "Math" wr
 \\[
 	$1
 \\]$0
@@ -802,4 +802,9 @@ endsnippet
 context math()
 snippet zz "zeta" wA
 \zeta$0
+endsnippet
+
+context math()
+snippet dd "delta" wA
+\delta$0
 endsnippet
