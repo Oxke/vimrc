@@ -33,10 +33,10 @@ snippet mk "Parenthesis" iA
 {($1)}$0
 endsnippet
 
-snippet "^ *m" "Math" wr
-\\[
-	$1
-\\]$0
+snippet "^( *)m" "Math" wr
+`!p snip.rv = match.group(1)`\[
+`!p snip.rv = match.group(1)`  $1
+`!p snip.rv = match.group(1)`\]$0
 endsnippet
 
 snippet // "Fraction" iA
@@ -435,6 +435,12 @@ snippet norm "norm" iA
 \|$1\|$0
 endsnippet
 
+priority 101
+context "math()"
+snippet snorm "Norm with 3 vert lines" iA
+\seminorm{$1}$0
+endsnippet
+
 context math()
 snippet lrn "bignorm" iA
 \left\|$1\right\|$0
@@ -650,7 +656,7 @@ endsnippet
 
 context math()
 snippet <> "langle/rangle" iA
-\langle $1 \rangle$0
+\Span{$1} $0
 endsnippet
 
 context math()

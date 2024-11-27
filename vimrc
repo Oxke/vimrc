@@ -103,6 +103,7 @@ au Filetype html Markdown setlocal ts=2 sw=2 sts=2
 set lbr
 set tw=80
 autocmd Filetype html Markdown setlocal tw=1000
+autocmd Filetype gitcommit setlocal tw=72
 
 set ai "Auto indent
 set si "Smart indent
@@ -473,6 +474,9 @@ nnoremap <C-f> : silent exec '!inkscape-figures edit "'.b:vimtex.root.'/figures/
 
 let g:vimtex_view_method = 'zathura'
 let g:latex_view_general_viewer = 'zathura'
+
+" Surround
+let g:surround_108 = "\\begin{\1environment: \1}\r\\end{\1\1}"
 
 " Save, execute, compile
 aug SaveExecuteCompile
