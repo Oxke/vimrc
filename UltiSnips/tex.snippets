@@ -207,7 +207,7 @@ endsnippet
 
 context math()
 snippet int "integral" wA
-\int $1 d$2$0
+\int $1 \,d$2$0
 endsnippet
 
 priority 1
@@ -277,7 +277,7 @@ snippet  "(n|\d)sqrt" "n-th root" rwA
 endsnippet
 
 context math()
-snippet "([bp])?mat" "matrix" rw
+snippet "\\?([bp])?mat" "matrix" rw
 \begin{`!p snip.rv = match.group(0) if match.group(0) else ""`rix}
 	$1
 \end{`!p snip.rv = match.group(0) if match.group(0) else ""`rix}$0
@@ -330,6 +330,17 @@ snippet gg "gamma" iA
 \gamma$0
 endsnippet
 
+priority 0
+context math()
+snippet nn "nu" iA
+\nu$0
+endsnippet
+
+context math()
+snippet mm "mu" iA
+\mu$0
+endsnippet
+
 priority 1000
 snippet .. "dots" iA
 \dots
@@ -369,8 +380,9 @@ endsnippet
 
 priority 1
 context "math()"
-snippet "([A-Za-z])([ijnm]{2})" "Smart subscript for i and j" riA
-`!p snip.rv = match.group(1)`_{`!p snip.rv = "".join(set(match.group(2)))`}$0
+snippet "([A-Za-z])(([ijnmk])\3|ij|nm|in|nj)" "Smart subscript for indexes" riA
+`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2) if \
+	len(set(match.group(2))) == 2 else match.group(2)[0]`}$0
 endsnippet
 
 priority 100
@@ -454,13 +466,13 @@ endsnippet
 
 priority 300
 context "math()"
-snippet dint "integral" wA
-\int_{${1:-\infty}}^{${2:\infty}} ${3:${VISUAL}} $0
+snippet ind "integral" wA
+\int_{${1:-\infty}}^{${2:\infty}} ${3:${VISUAL}} \,d$4 $0
 endsnippet
 
 priority 200
 context "math()"
-snippet '(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta|int)' "ln" rwA
+snippet '(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta)' "ln" rwA
 \\`!p snip.rv = match.group(1)`
 endsnippet
 
@@ -538,7 +550,7 @@ snippet <-> "leftrightarrow" iA
 endsnippet
 
 context "math()"
-snippet invs "inverse" iA
+snippet nvs "inverse" iA
 ^{-1}
 endsnippet
 
@@ -547,10 +559,9 @@ snippet compl "complement" iA
 ^{c}
 endsnippet
 
-priority 200
 context "math()"
-snippet \\\ "setminus" iA
-\setminus
+snippet orto "orthogonal" iA
+^\perp 
 endsnippet
 
 snippet >> ">>" iA
@@ -581,13 +592,21 @@ snippet notin "not in " iA
 \not\in 
 endsnippet
 
+priority 30000
 context "math()"
 snippet inn "in " iA
 \in 
 endsnippet
 
+priority 30000
 context math()
 snippet nni "contains" iA
+\\ni
+endsnippet
+
+priority 30000
+context math()
+snippet \nui "contains" iA
 \\ni
 endsnippet
 
