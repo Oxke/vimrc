@@ -278,9 +278,9 @@ endsnippet
 
 context math()
 snippet "\\?([bp])?mat" "matrix" rw
-\begin{`!p snip.rv = match.group(0) if match.group(0) else ""`rix}
+\begin{`!p snip.rv = match.group(1) if match.group(1) else ""`matrix}
 	$1
-\end{`!p snip.rv = match.group(0) if match.group(0) else ""`rix}$0
+\end{`!p snip.rv = match.group(1) if match.group(1) else ""`matrix}$0
 endsnippet
 
 context matrix()
@@ -405,6 +405,11 @@ priority 1
 context "math()"
 snippet mbf "mathbb" iA
 \mathbf{$1}$0
+endsnippet
+
+context math()
+snippet mrm "mathrm" iA
+\mathrm{$1}$0
 endsnippet
 
 priority 2
@@ -832,4 +837,9 @@ endsnippet
 context math()
 snippet dd "delta" wA
 \delta$0
+endsnippet
+
+context math()
+snippet ++ "direct sum" iA
+\oplus $0
 endsnippet
