@@ -330,6 +330,13 @@ snippet gg "gamma" iA
 \gamma$0
 endsnippet
 
+priority 10000
+context math()
+snippet GG "Gamma" iA
+\Gamma$0
+endsnippet
+
+
 priority 0
 context math()
 snippet nn "nu" iA
@@ -731,8 +738,9 @@ snippet pm "plus minus" iA
 \\pm
 endsnippet
 
+priority 100
 context math()
-snippet ~= "congruency" iA
+snippet =~ "congruency" iA
 \\cong $0
 endsnippet
 
@@ -832,4 +840,9 @@ endsnippet
 context math()
 snippet dd "delta" wA
 \delta$0
+endsnippet
+
+context math()
+snippet ≃ "congruence/isomorphism" iA
+\cong$0
 endsnippet
