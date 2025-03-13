@@ -364,7 +364,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'jiangmiao/auto-pairs'
 " Plug 'scrooloose/nerdcommenter'
-" Plug 'sbdchd/neoformat'
+Plug 'sbdchd/neoformat'
 Plug 'scrooloose/nerdtree'
 Plug 'github/copilot.vim'
 Plug 'neomake/neomake'
@@ -378,6 +378,8 @@ Plug 'JuliaEditorSupport/julia-vim'
 call plug#end()
 
 filetype plugin indent on
+
+let g:latexindent_opt="-m"
 
 set conceallevel=1
 let g:tex_conceal='abdmg'
