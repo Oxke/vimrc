@@ -342,7 +342,10 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'jiangmiao/auto-pairs'
 " Plug 'scrooloose/nerdcommenter'
+<<<<<<< HEAD:vimrc.old
+=======
 Plug 'sbdchd/neoformat'
+>>>>>>> 4956a301b39d60c8ed856519c6b7a7490c1d8dbc:vimrc
 Plug 'scrooloose/nerdtree'
 Plug 'github/copilot.vim'
 Plug 'neomake/neomake'

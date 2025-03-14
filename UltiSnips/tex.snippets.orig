@@ -309,11 +309,6 @@ snippet td "to the ... power" iA
 ^{$1}$0
 endsnippet
 
-context "math()"
-snippet rd "to the (...) power" iA
-^{($1)}$0
-endsnippet
-
 context math()
 snippet __ "subscript" iA
 _{$1} $0
@@ -330,6 +325,7 @@ snippet gg "gamma" iA
 \gamma$0
 endsnippet
 
+<<<<<<< HEAD
 priority 10000
 context math()
 snippet GG "Gamma" iA
@@ -337,9 +333,16 @@ snippet GG "Gamma" iA
 endsnippet
 
 
+=======
+context math()
+snippet kk "kappa" iA
+\kappa$0
+endsnippet
+
+>>>>>>> 4956a301b39d60c8ed856519c6b7a7490c1d8dbc
 priority 0
 context math()
-snippet nn "nu" iA
+snippet nu "nu" iA
 \nu$0
 endsnippet
 
@@ -421,7 +424,7 @@ endsnippet
 
 priority 2
 context math()
-snippet  "([A-Za-z])bf" "bold" riA
+snippet  "([A-Za-z0-9])bf" "bold" riA
 \mathbf{`!p snip.rv = match.group(1)`} $0
 endsnippet
 
@@ -823,6 +826,16 @@ snippet bb "beta" wA
 endsnippet
 
 context math()
+snippet \betaf "mathbold b" iA
+\mathbf{b}$0
+endsnippet
+
+context math()
+snippet ^3f "mathbold c" iA
+\mathbf{c}$0
+endsnippet
+
+context math()
 snippet os "overset" w
 \overset{$2}{$1}$0
 endsnippet
@@ -851,8 +864,21 @@ context math()
 <<<<<<< HEAD
 snippet ≃ "congruence/isomorphism" iA
 \cong$0
+endsnippet
 =======
+snippet ss "sigma" wA
+\sigma$0
+endsnippet
+
+context math()
 snippet ++ "direct sum" iA
 \oplus $0
->>>>>>> 62bc381df2f45fd6ffb3a07664f02810368d0382
 endsnippet
+
+priority 10000
+context math()
+snippet "(A-Za-z){2}" "smart bold" riA
+\mathbf{`!p snip.rv = match.group(1)[0]`} $0
+endsnippet
+
+>>>>>>> 4956a301b39d60c8ed856519c6b7a7490c1d8dbc

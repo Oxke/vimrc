@@ -1,3 +1,4 @@
+zg
 untoggle
 iniettiva
 l'iniettività
@@ -9,11 +10,13 @@ metrizzabile
 bigettività
 suriettività
 bigezione
-l'iniettività
+l'inettività
+#nettività/!
+inettività/!
 Iperpiani
 controimmagini
 sottobase
-conumerabile
+conumerabile/!
 conumerabile
 Grassman
 bigettiva
@@ -34,19 +37,24 @@ Lotka
 modellizzare
 un'ODE
 contrapositivo
-borelliani
+#orelliani
 l'inf
 kiro
-sottratività
+#ottratività
 subadditività
 intervallini
 singoletto
 Beppo
 wlog
+#ottratività/!
+sottratività/!
+sottrattività
 massimalità
 semicontinua
+<<<<<<< HEAD
 omotope
 omotopa
+=======
 l'Hôpital
 convoluzione
 Severini
@@ -54,26 +62,31 @@ Egorov
 Fubini
 Nikodym
 Minkowski
+<<<<<<< HEAD
 lipschitziana
 lipschitzianità
 Peano
+=======
+>>>>>>> f46c7cc2efd2f41d0e36cbbb631b9adc2cab101c
+>>>>>>> e8680b5f86e8ad95ba1f98bbffd813f95d6dac9c
 prehilbertiano
 hilbertiana
 olomorfa
 omotopo
 olomorfo
-suddivisone
+suddivisone/!
 Sobolev
 meromorfe
 meromorfa
 riparametrizzazione
 hölderiana
 lipschitziane
+<<<<<<< HEAD
 Hölder
 lipschitziano
 integranda
 boreliani
-borelliani
+borelliani/!
 Caratheodory
 Stieltjes
 Phyphox
@@ -84,6 +97,7 @@ Diffeomorfismo
 Diffeomorfismi
 diffeomorfismo
 Oxke
+=======
 Durbin
 diagonalizzabile
 Slavich
@@ -94,3 +108,4 @@ Triedrio
 Binet
 diffeomorfismi
 riparametrizzare
+>>>>>>> 4956a301b39d60c8ed856519c6b7a7490c1d8dbc
