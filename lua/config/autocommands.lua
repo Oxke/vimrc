@@ -4,7 +4,9 @@ end
 
 au({"FileType"}, {
        pattern = {"markdown", "html", "typescript", "typescriptreact"},
-       callback = "setlocal ts=2 sw=2 sts=2"
+       callback = function()
+           vim.cmd("setlocal ts=2 sw=2 sts=2")
+       end
     })
 
 au({"FileType"}, {
