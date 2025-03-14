@@ -317,7 +317,7 @@ endfunction
 
 " Plugins
 call plug#begin()
-Plug 'dmerejkowsky/vim-ale'
+Plug 'dmerejkowsky/vim-ale' 
 Plug 'wuelnerdotexe/vim-enfocado' " colorscheme
 Plug 'junegunn/goyo.vim' " zen mod
 " Plug 'junegunn/limelight.vim'

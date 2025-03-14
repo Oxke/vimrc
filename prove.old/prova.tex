@@ -1,0 +1,188 @@
+\documentclass{article}
+\usepackage{layout}
+\usepackage[a4paper, total={5in,9in}]{geometry}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{cancel}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+\usepackage{import}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+\newcommand{\incfig}[2][1]{%
+    \def\svgwidth{#1\columnwidth}
+    \import{./figures/}{#2.pdf_tex}
+}
+
+\pdfsuppresswarningpagegroup=1
+
+\newcounter{theo}[section]\setcounter{theo}{0}
+\renewcommand{\thetheo}{\arabic{section}.\arabic{theo}}
+
+\newenvironment{theorem}[1][]{
+    \refstepcounter{theo}
+     \ifstrempty{#1}
+    {\mdfsetup{
+        frametitle={
+            \tikz[baseline=(current bounding box.east),outer sep=0pt]
+            \node[anchor=east,rectangle,fill=blue!20,rounded corners=5pt]
+            {\strut Theorem~\thetheo};}
+        }
+    }{\mdfsetup{
+        frametitle={
+            \tikz[baseline=(current bounding box.east),outer sep=0pt]
+            \node[anchor=east,rectangle,fill=blue!20,rounded corners=5pt]
+            {\strut Theorem~\thetheo:~#1};}
+        }
+    }
+    \mdfsetup{
+        roundcorner=10pt,
+        innertopmargin=10pt,linecolor=blue!20,
+        linewidth=2pt,topline=true,
+        frametitleaboveskip=\dimexpr-\ht\strutbox\relax%
+    }
+\begin{mdframed}[]\relax}{
+\end{mdframed}}
+
+\theoremstyle{plain}
+\newtheorem{lemma}[theo]{Lemma}
+\newtheorem{corollary}{Corollary}[theo]
+\newtheorem{proposition}{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theo]{Definition}
+\newtheorem{example}{Example}
+
+\theoremstyle{remark}
+\newtheorem*{note}{Note}
+\newtheorem*{remark}{Remark}
+
+\newtcolorbox{notebox}{
+  colback=gray!10,
+  colframe=black,
+  arc=5pt,
+  boxrule=1pt,
+  left=15pt,
+  right=15pt,
+  top=15pt,
+  bottom=15pt,
+}
+
+\title{}
+\author{Osea}
+\date{2023-12-10}
+\begin{document}
+
+\maketitle
+
+\begin{theorem}[THEOREMONE]
+    \label{thm:1}
+    Il teorema di Lebesgue
+\end{theorem}
+
+\begin{proof}
+    Si può dimostrare per ovvietà,
+\end{proof}
+
+\[\frac{12}{a+b}\]
+
+Let \(f: \mathbb{R} \to \mathbb{C}\) la funzione definita da \(x \mapsto x^2\)
+Il miglior risultato che si può ottenere al momento è \(12 + 4\)
+
+
+Sia \(f: \mathbb{R} \to \mathbb{R}\) definita da \(a \mapsto a^{2}_{11}  \)
+possiamo calcolare il kernel della funzione \(f\) come \(\ker f = \{0\}\)
+ottenendo quindi che la funzione deve essere iniettiva. Dovrà esserlo sempre
+iniettiva per ogni \(a \in \mathbb{R}\) e quindi \(f\) è iniettiva.
+
+\begin{theorem}[Iniettività \(\iff \ker = \{1\}\)]
+     Sia \(f: G \to H\) un omomorfismo di gruppi da \(G\) ad \(H\). \\ Allora
+     \(f\) è iniettivo se e solo se \(\ker{f}=\{1\}\).
+\end{theorem}
+\begin{proof}
+    Sia \(f: G \to H\) un omomorfismo di gruppi da \(G\) a \(H\) allora:
+    \begin{itemize}
+        \item Se \(f\) è iniettava supponiamo che \(a \in \ker{f}\) allora
+            \(f(a)=0\) ma dato che \(f\) è un omomorfismo allora \(f(0)=0\)
+            quindi per l'iniettività \(a=0\) e quindi \(\ker{f}=\{1\}\)
+        \item Se \(\ker{f}=\{1\}\) allora \(f\) è iniettiva. Infatti se
+            \(f(a)=f(b)\) allora \(f(a-b)=0\) e quindi \(a-b=0\) e quindi
+            \(a=b\)
+    \end{itemize}
+\end{proof}
+
+\begin{figure}[ht]
+    \centering
+    \incfig{test-picture}
+    \caption{test picture}
+    \label{fig:test-picture}
+\end{figure}
+
+\section{Radice di 2 è irrazionale}
+\begin{theorem}
+    \label{thm:2}
+    \(\sqrt{2}\) è irrazionale
+\end{theorem}
+\begin{proof}
+    Supponiamo per assurdo che \(\sqrt{2}\) sia razionale, allora
+    \(\sqrt{2}=\frac{a}{b}\) con \(a,b \in \mathbb{Z}\) e \(b \neq 0\). \\
+    Possiamo supporre che \(\frac{a}{b}\) sia ridotta ai minimi termini,
+    cioè che \(a\) e \(b\) siano coprimi. \\
+    Allora \(\sqrt{2}=\frac{a}{b}\) e quindi \(2=\frac{a^2}{b^2}\) e quindi
+    \(a^2=2b^2\). \\
+    Quindi \(a^2\) è pari e quindi \(a\) è pari. \\
+    Allora \(a=2k\) con \(k \in \mathbb{Z}\) e quindi \(2b^2=4k^2\) e quindi
+    \(b^2=2k^2\) e quindi \(b^2\) è pari e quindi \(b\) è pari. \\
+    Ma questo è assurdo dato che abbiamo supposto che \(a\) e \(b\) fossero
+    coprimi. \\
+    Quindi \(\sqrt{2}\) è irrazionale.
+\end{proof}
+
+\begin{figure}[ht]
+    \centering
+    \incfig[.4]{faccia}
+    \incfig[.4]{funzione-convessa}
+    \caption{faccia}
+    \label{fig:faccia}
+\end{figure}
+
+let \(f: \mathbb{R} \to \mathbb{R}\)
+
+\[
+    \coprod_{i \in  I} 
+\]
+
+\[
+    ds^2 = -c\,dt^2 + dx^2 + dy^2 + dz^2
+\]
+
+\begin{align*}
+    f: \mathbb{R} &\longrightarrow \mathbb{C} \\
+    x &\longmapsto f(x) = \frac{1}{2\pi i} \int_{\gamma} \frac{1}{z-x} dz
+\end{align*}
+
+so we know that \(e^{2x^2} = A \subset B \text{24}\)
+
+quindi otteniamo alla fine che \(A^{\mathcal{I}} = \varnothing \subset\)
+everything so also \(B^{\mathcal{I}}\)
+
+\textbf{Il migliore} risultato che fosse mai stato trovato
+so:
+\begin{align*}
+    a &= b + c \\
+    \iff a - b &= c \\
+    \text{da cui otteniamo che}
+    \implies a - b &= c \\
+    \text{e a sua volta} a - c &= b \impliedby 
+\end{align*}
+
+\[
+    \frac{\left( \frac{1}{2} \right)}{2}
+\]
+\end{document}

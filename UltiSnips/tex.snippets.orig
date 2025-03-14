@@ -1,0 +1,858 @@
+global !p
+def math():
+    return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+def comment(): 
+    return vim.eval('vimtex#syntax#in_comment()') == '1'
+def env(name):
+    [x,y] = vim.eval("vimtex#env#is_inside('" + name + "')") 
+    return x != '0' and x != '0'
+def matrix():
+	return env('matrix') or env('pmatrix') or env('bmatrix') or env('Bmatrix') or env('vmatrix') or env('Vmatrix')
+def not_math():
+	return not math()
+endglobal
+
+snippet "\\?today" "Date" rw
+`date +"%B %-d, %Y"`
+endsnippet
+
+snippet beg "begin {} ... end" w
+\begin{$1}
+	$2
+\end{$1}
+$0
+endsnippet
+
+context not_math()
+snippet mk "Inline Math" iA
+\($1\) $0
+endsnippet
+
+context math()
+snippet mk "Parenthesis" iA
+{($1)}$0
+endsnippet
+
+snippet "^( *)m" "Math" wr
+`!p snip.rv = match.group(1)`\[
+`!p snip.rv = match.group(1)`  $1
+`!p snip.rv = match.group(1)`\]$0
+endsnippet
+
+snippet // "Fraction" iA
+\\frac{$1}{$2}$0
+endsnippet
+
+snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "Fraction" wrA
+\\frac{`!p snip.rv = match.group(1)`}{$1}$0
+endsnippet
+
+# priority 1000
+snippet '^.*\)/' "() Fraction" wrA
+`!p
+stripped = match.string[:-1]
+depth = 0
+i = len(stripped) - 1
+while True:
+	if stripped[i] == ')': depth += 1
+	if stripped[i] == '(': depth -= 1
+	if depth == 0: break;
+	i -= 1
+snip.rv = stripped[0:i] + "\\frac{" + stripped[i+1:-1] + "}"
+`{$1}$0
+endsnippet
+
+context "math()"
+snippet ceil "ceil" iA
+\left\lceil $1 \right\rceil $0
+endsnippet
+
+context "math()"
+snippet floor "floor" iA
+\left\lfloor $1 \right\rfloor$0
+endsnippet
+
+context "math()"
+snippet uio "left( right)" iA
+{\left( $1 \right)} $0
+endsnippet
+
+snippet lr "left( right)" i
+\left( ${1:${VISUAL}} \right) $0
+endsnippet
+
+snippet lr( "left( right)" i
+\left( ${1:${VISUAL}} \right) $0
+endsnippet
+
+snippet lr| "left| right|" i
+\left| ${1:${VISUAL}} \right| $0
+endsnippet
+
+snippet lr{ "left\{ right\}" i
+\left\\{ ${1:${VISUAL}} \right\\} $0
+endsnippet
+
+snippet lrb "left\{ right\}" i
+\left\\{ ${1:${VISUAL}} \right\\} $0
+endsnippet
+
+snippet lr[ "left[ right]" i
+\left[ ${1:${VISUAL}} \right] $0
+endsnippet
+
+snippet lra "leftangle rightangle" iA
+\left<${1:${VISUAL}} \right>$0
+endsnippet
+
+context "math()"
+snippet conj "conjugate" iA
+\overline{$1}$0
+endsnippet
+
+snippet plot "Plot" w
+\begin{figure}[$1]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+			xmin= ${2:-10}, xmax= ${3:10},
+			ymin= ${4:-10}, ymax = ${5:10},
+			axis lines = middle,
+		]
+			\addplot[domain=$2:$3, samples=${6:100}]{$7};
+		\end{axis}
+	\end{tikzpicture}
+	\caption{$8}
+	\label{${9:$8}}
+\end{figure}
+endsnippet
+
+priority 3
+snippet "(.*) = sympy" "sympy block" br
+`!p snip.rv = match.group(1) + ' = sympy' + match.group(1) + " sympy"` $0
+endsnippet
+
+priority 1
+snippet sympy "sympy block " w
+sympy $1 sympy$0
+endsnippet
+
+priority 5
+snippet 'sympy(.*)sympy' "evaluate sympy" br
+`!p
+from sympy import *
+x, y, z, t = symbols('x y z t')
+k, m, n = symbols('k m n', integer=True)
+f, g, h = symbols('f g h', cls=Function)
+init_printing()
+snip.rv = eval('latex(' + match.group(1).replace('\\', '') \
+    .replace('^', '**') \
+    .replace('{', '(') \
+    .replace('}', ')') + ')')
+`
+endsnippet
+
+context math()
+priority 2
+snippet "((?:\\[A-Za-z]+)?[A-Za-z])dot" "bar" riA
+\dot{`!p snip.rv=match.group(1)`}
+endsnippet
+
+context math()
+priority 3
+snippet "((?:\\[A-Za-z]+)?[A-Za-z])ddot" "bar" riA
+\ddot{`!p snip.rv=match.group(1)`}
+endsnippet
+
+priority 2
+context math()
+snippet bar "bar" iA
+\overline{$1}$0
+endsnippet
+
+priority 3
+snippet "((?:\\[A-Za-z]+)?[A-Za-z])bar" "bar" riA
+\overline{`!p snip.rv=match.group(1)`}
+endsnippet
+
+priority 2
+context math()
+snippet "hat" "hat" riA
+\hat{$1}$0
+endsnippet
+
+priority 3
+context math()
+snippet "((?:\\[A-Za-z]+)?[A-Za-z])hat" "hat" riA
+\hat{`!p snip.rv=match.group(1)`}
+endsnippet
+
+priority 11
+context math()
+snippet "((?:\\[A-Za-z]+)?[A-Za-z])~" "tilde" riA
+\tilde{`!p snip.rv=match.group(1)`}
+endsnippet
+
+priority 2
+context math()
+snippet "vec" "vec" riA
+\vec{$1}$0
+endsnippet
+
+priority 3
+context math()
+snippet "((?:\\[A-Za-z]+)?[A-Za-z])vec" "vec" riA
+\vec{`!p snip.rv=match.group(1)`}
+endsnippet
+
+context math()
+snippet int "integral" wA
+\int $1 \,d$2$0
+endsnippet
+
+priority 1
+snippet fun "function" w
+\(${1:f}: $2 \to $3\)$0
+endsnippet
+
+priority 2
+context math()
+snippet fun "function" wA
+${1:f}: $2 \to $3$0
+endsnippet
+
+# Sets
+snippet RR "Real Numbers" wA
+\mathbb{R}$0
+endsnippet
+
+snippet QQ "Rational Numbers" wA
+\mathbb{Q}$0
+endsnippet
+
+snippet ZZ "Integers" wA
+\mathbb{Z}$0
+endsnippet
+
+snippet NN "Natural Numbers" wA
+\mathbb{N}$0
+endsnippet
+
+snippet CC "Complex Numbers" wA
+\mathbb{C}$0
+endsnippet
+
+snippet HH "Quaternions" wA
+\mathbb{H}$0
+endsnippet
+
+snippet KK "Field" wA
+\mathbb{K}$0
+endsnippet
+
+context math()
+snippet !> "maps to" wA
+\mapsto$0
+endsnippet
+
+priority 1
+snippet iff "if and only if" wA
+\(\iff$1\)$0
+endsnippet
+
+priority 2
+context math()
+snippet iff "if and only if" wA
+\iff$0
+endsnippet
+
+context math()
+snippet sqrt "square root" wA
+\sqrt{$1}$0
+endsnippet
+
+context math()
+snippet  "(n|\d)sqrt" "n-th root" rwA
+\sqrt[`!p snip.rv = match.group(1)`]{$1}$0
+endsnippet
+
+context math()
+snippet "\\?([bp])?mat" "matrix" rw
+\begin{`!p snip.rv = match.group(1) if match.group(1) else ""`matrix}
+	$1
+\end{`!p snip.rv = match.group(1) if match.group(1) else ""`matrix}$0
+endsnippet
+
+context matrix()
+snippet ' ' "&" riA
+ & $0
+endsnippet
+
+context matrix()
+snippet n "newline" iA
+ \\\\
+$0
+endsnippet
+
+context "math()"
+snippet sr "^2" iA
+^2
+endsnippet
+
+context "math()"
+snippet cb "^3" iA
+^3
+endsnippet
+
+context "math()"
+snippet td "to the ... power" iA
+^{$1}$0
+endsnippet
+
+context "math()"
+snippet rd "to the (...) power" iA
+^{($1)}$0
+endsnippet
+
+context math()
+snippet __ "subscript" iA
+_{$1} $0
+endsnippet
+
+context math()
+snippet "([A-Za-z])(\d)" "smart subscript" riA
+`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}$0
+endsnippet
+
+priority 10000
+context math()
+snippet gg "gamma" iA
+\gamma$0
+endsnippet
+
+priority 10000
+context math()
+snippet GG "Gamma" iA
+\Gamma$0
+endsnippet
+
+
+priority 0
+context math()
+snippet nn "nu" iA
+\nu$0
+endsnippet
+
+context math()
+snippet mm "mu" iA
+\mu$0
+endsnippet
+
+priority 1000
+snippet .. "dots" iA
+\dots
+endsnippet
+
+snippet ooo "\infty" iA
+\infty
+endsnippet
+
+snippet != "neq" iA
+\neq
+endsnippet
+
+snippet <= "leq" iA
+\le 
+endsnippet
+
+snippet >= "geq" iA
+\ge 
+endsnippet
+
+context "math()"
+snippet EE "geq" iA
+\exists 
+endsnippet
+
+context "math()"
+snippet AA "forall" iA
+\forall 
+endsnippet
+
+priority 200
+context "math()"
+snippet lim "lim" iA
+\lim_{${1:n} \to ${2:\infty}} $0
+endsnippet
+
+priority 1
+context "math()"
+snippet "([A-Za-z])(([ijnmk])\3|ij|nm|in|nj)" "Smart subscript for indexes" riA
+`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2) if \
+	len(set(match.group(2))) == 2 else match.group(2)[0]`}$0
+endsnippet
+
+priority 100
+context "math()"
+snippet xp1 "x" iA
+x_{${1:n}+1}
+endsnippet
+
+context "math()"
+snippet mcal "mathcal" iA
+\mathcal{$1}$0
+endsnippet
+
+context "math()"
+snippet mbb "mathbb" iA
+\mathbb{$1}$0
+endsnippet
+
+priority 1
+context "math()"
+snippet mbf "mathbb" iA
+\mathbf{$1}$0
+endsnippet
+
+context math()
+snippet mrm "mathrm" iA
+\mathrm{$1}$0
+endsnippet
+
+priority 2
+context math()
+snippet  "([A-Za-z])bf" "bold" riA
+\mathbf{`!p snip.rv = match.group(1)`} $0
+endsnippet
+
+context not_math()
+snippet BB "bold" iA
+\textbf{${1:${VISUAL}}}$0
+endsnippet
+context not_math()
+
+snippet II "italic" iA
+\emph{${1:${VISUAL}}}$0
+endsnippet
+
+snippet lll "l" iA
+\ell
+endsnippet
+
+context "math()"
+snippet nabl "nabla" iA
+\nabla 
+endsnippet
+
+context "math()"
+snippet xx "cross" iA
+\times 
+endsnippet
+
+priority 100
+snippet ** "cdot" iA
+\cdot 
+endsnippet
+
+context "math()"
+snippet norm "norm" iA
+\|$1\|$0
+endsnippet
+
+priority 101
+context "math()"
+snippet snorm "Norm with 3 vert lines" iA
+\seminorm{$1}$0
+endsnippet
+
+context math()
+snippet lrn "bignorm" iA
+\left\|$1\right\|$0
+endsnippet
+
+priority 101
+context "math()"
+snippet '(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp)' "ln" rwA
+\\`!p snip.rv = match.group(1)`
+endsnippet
+
+priority 300
+context "math()"
+snippet ind "integral" wA
+\int_{${1:-\infty}}^{${2:\infty}} ${3:${VISUAL}} \,d$4 $0
+endsnippet
+
+priority 200
+context "math()"
+snippet '(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta)' "ln" rwA
+\\`!p snip.rv = match.group(1)`
+endsnippet
+
+context not math()
+snippet "^([\.\(\-])?([1aAIi])([\.\)\-]) " "smart enum numbers" rA
+\begin{enumerate}[label = `!p
+indexes = {
+	'1': '\\arabic*',
+	'a': '\\alph*',
+	'A': '\\Alph*',
+	'i': '\\roman*',
+	'I': '\\Roman*',
+}
+snip.rv = (match.group(1) if match.group(1) else '') + indexes[match.group(2)] + match.group(3)
+`]
+	\item $1
+\end{enumerate}
+$0
+endsnippet
+
+snippet enum "Enumerate" bA
+\begin{enumerate}
+	\item $1
+\end{enumerate}
+$0
+endsnippet
+
+snippet item "Itemize" bA
+\begin{itemize}
+	\item $1
+\end{itemize}
+$0
+endsnippet
+
+priority 25
+context not math()
+snippet "^- " "Itemize" rA
+\begin{itemize}[label = --]
+	\item $1
+\end{itemize}
+$0
+endsnippet
+
+priority 50
+context env('itemize') or env('enumerate')
+snippet -- "Item" iA
+\item $0
+endsnippet
+
+context math()
+priority 100
+snippet -- "Set minus" iA
+\\sminus $0
+endsnippet
+
+priority 1
+snippet => "implies" Ai
+\implies $0
+endsnippet
+
+snippet =< "implied by" Ai
+\impliedby $0
+endsnippet
+
+priority 100
+context "math()"
+snippet -> "to" iA
+\to $0
+endsnippet
+
+priority 200
+context "math()"
+snippet <-> "leftrightarrow" iA
+\leftrightarrow
+endsnippet
+
+context "math()"
+snippet nvs "inverse" iA
+^{-1}
+endsnippet
+
+context "math()"
+snippet compl "complement" iA
+^{c}
+endsnippet
+
+context "math()"
+snippet orto "orthogonal" iA
+^\perp 
+endsnippet
+
+snippet >> ">>" iA
+\gg
+endsnippet
+
+snippet << "<<" iA
+\ll
+endsnippet
+
+
+context "math()"
+snippet set "set" wA
+\\{$1\\} $0
+endsnippet
+
+context "math()"
+snippet cc "subset" Ai
+\\subseteq$0 
+endsnippet
+
+context math()
+snippet \subseteq "Superset" i 
+\\supseteq $0
+endsnippet
+
+snippet notin "not in " iA
+\not\in 
+endsnippet
+
+priority 30000
+context "math()"
+snippet inn "in " iA
+\in 
+endsnippet
+
+priority 30000
+context math()
+snippet nni "contains" iA
+\\ni
+endsnippet
+
+priority 30000
+context math()
+snippet \nui "contains" iA
+\\ni
+endsnippet
+
+context math()
+snippet sum "sum" w
+\sum_{${1:i}=${2:1}}^{${3:\infty}} ${4:a_n z^n} $0
+endsnippet
+
+context math()
+priority 3
+snippet Nn "cap" iA
+\cap 
+endsnippet
+
+context math()
+snippet UU "cup" iA
+\cup 
+endsnippet
+
+priority 1
+snippet uuu "bigcup" iA
+\bigcup_{${1:i \in ${2: I}}} $0
+endsnippet
+
+priority 200
+snippet nnn "bigcap" iA
+\bigcap_{${1:i \in ${2: I}}} $0
+endsnippet
+
+priority 2
+snippet duuu "disjoint bigcup" iA
+\coprod_{${1:i \in ${2: I}}} $0
+endsnippet
+
+snippet <! "normal" iA
+\triangleleft 
+endsnippet
+
+snippet bigfun "Big function" iA
+\begin{align*}
+	$1: $2 &\longrightarrow $3 \\\\
+	$4 &\longmapsto $1($4) = $0
+\end{align*}
+endsnippet
+
+context "math()"
+snippet '(?<!i)sts' "text subscript" irA
+_\text{$1} $0
+endsnippet
+
+context "math()"
+snippet tt "text" iA
+\text{$1}$0
+endsnippet
+
+context math()
+snippet OO "empty set" iA
+\varnothing
+endsnippet
+
+snippet ali "Align" bA
+\begin{align*}
+	${1:${VISUAL}}
+\end{align*}
+endsnippet
+
+context math()
+snippet <> "langle/rangle" iA
+\Span{$1} $0
+endsnippet
+
+context math()
+snippet always "Square box" iA 
+\\square$0
+endsnippet
+
+context math()
+snippet phi "varphi" iA
+\\varphi $0
+endsnippet
+
+context math()
+snippet eps "varepsilon" iA
+\\varepsilon$0
+endsnippet
+
+context math()
+snippet et "logical and" i
+\\land$0
+endsnippet
+
+context math()
+snippet vel "logical or" i
+\\lor$0
+endsnippet
+
+snippet "^p" "paragraph" wr
+\paragraph{$1}$0
+endsnippet
+
+snippet mp "Margin paragraph" w
+\marginpar{$1}$0
+endsnippet
+
+snippet qwe "Quotes" iA
+\`\`$1''$0
+endsnippet
+
+context math()
+snippet part "Partial derivative" iA
+\\frac{\\partial $1}{\\partial $2}$0
+endsnippet
+
+context math()
+snippet ð "boundary symbol" iA
+\partial$0
+endsnippet
+
+priority 100
+context math()
+snippet pm "plus minus" iA
+\\pm
+endsnippet
+
+priority 100
+context math()
+snippet =~ "congruency" iA
+\\cong $0
+endsnippet
+
+snippet piff "Iff proof" w
+\\begin{proof}${1:\\( \\)}
+\\begin{itemize}
+	\item[\\(\\implies \\)] $2
+	\item[\\(\\impliedby \\)] $3
+\\end{itemize}
+\\end{proof}
+$0
+endsnippet
+
+snippet pset "Set equality proof" w
+\\begin{proof}${1:\\( \\)}
+\\begin{itemize}
+	\item[\\(\\subseteq \\)] $2
+	\item[\\(\\supseteq \\)] $3
+\\end{itemize}
+\\end{proof}
+$0
+endsnippet
+
+priority 10
+context math()
+snippet ~ "tilde" iA
+\\sim $0
+endsnippet
+
+context math()
+snippet lkj "lambda" iA
+\\lambda
+endsnippet
+
+priority 10
+context math()
+snippet "([a-zA-Z])tr" "Transpose Matrix" riA
+\transp{`!p snip.rv = match.group(1)`} $0
+endsnippet
+
+priority 100
+context math()
+snippet tran "Transpose Matrix" iA
+\transp{$1} $0
+endsnippet
+
+context math()
+snippet ls "limsup" w
+\limsup_{${1:n} \to ${2:\infty}} $0
+endsnippet
+
+context math()
+snippet li "liminf" w
+\liminf_{${1:n} \to ${2:\infty}} $0
+endsnippet
+
+context math()
+snippet ww "omega" iA
+\omega$0
+endsnippet
+
+context math()
+snippet WW "Omega" iA
+\Omega$0
+endsnippet
+
+context math()
+snippet aa "alpha" wA
+\alpha$0
+endsnippet
+
+context math()
+snippet bb "beta" wA
+\beta$0
+endsnippet
+
+context math()
+snippet os "overset" w
+\overset{$2}{$1}$0
+endsnippet
+
+context math()
+snippet === "equivalence" iA
+\equiv$0
+endsnippet
+
+context math()
+snippet mr "mathring" w
+\mathring{$1}$0
+endsnippet
+
+context math()
+snippet zz "zeta" wA
+\zeta$0
+endsnippet
+
+context math()
+snippet dd "delta" wA
+\delta$0
+endsnippet
+
+context math()
+<<<<<<< HEAD
+snippet ≃ "congruence/isomorphism" iA
+\cong$0
+=======
+snippet ++ "direct sum" iA
+\oplus $0
+>>>>>>> 62bc381df2f45fd6ffb3a07664f02810368d0382
+endsnippet

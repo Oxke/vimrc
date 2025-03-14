@@ -1,12 +1,7 @@
 # vimrc
-My personal vimrc configuration file. It's divided in two parts, the file in
-.vimrc (which contains all the things I needed when I used only vim) and the
-init.vim file, for some nvim configuration. It is supposed to be for neovim.
 
-## Installation
-The installation is pretty straight forward. (vim-plug should be installed)
-
-1. Clone repository into .config/: `git clone https://github.com/Oxke/vimrc`
-2. Rename folder to "nvim": `mv vimrc nvim` (if nvim already existing then `mv
-   vimrc/* nvim/`)
-3. Open neovim and execute `:PlugInstall`
+My personal neovim configuration file. It consists of the standard lua setup:
+one `init.lua` file and a `lua/` folder for the different modules. Inside that
+folder are two subfolders: `config/` and `plugins/`. The `config/` folder
+contains the configuration files both for the whole editor and for the plugins,
+and the `plugins/` folder contains the plugin setup (using "lazy.nvim").

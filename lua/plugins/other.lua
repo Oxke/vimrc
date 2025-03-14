@@ -1,0 +1,12 @@
+return {{"norcalli/nvim-colorizer.lua", opts = {}},
+        { 'Sirver/ultisnips', event = { 'InsertEnter' }},
+        {"jiangmiao/auto-pairs"},
+        {"tpope/vim-surround"},
+        {"tpope/vim-fugitive"},
+        {"scrooloose/nerdtree"},
+        {"neomake/neomake"},
+        {"lervag/vimtex"},
+        {"jayli/vim-brainfuck"},
+        {"KeitaNakamura/tex-conceal.vim"},
+        {"JuliaEditorSupport/julia-vim"},
+        {"sbdchd/neoformat"}}
