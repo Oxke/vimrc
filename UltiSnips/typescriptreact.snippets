@@ -1,0 +1,17 @@
+snippet t "tag" w
+<$1>$2</$1>$0
+endsnippet
+
+snippet comp "component" w
+const ${1:ComponentName} = () => {
+  return (
+    $0
+  );
+}
+
+export default ${1:ComponentName};
+endsnippet
+
+snippet tb "TopicButton" w
+<TopicButton onClick={onClickButtons} text="$1" />
+endsnippet

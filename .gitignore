@@ -1,5 +1,8 @@
-prove/*
-plugged/*
-inkscape-shortcut-manager
-*.orig
-*.old
+tt.*
+.tests
+doc/tags
+debug
+.repro
+foo.*
+*.log
+data

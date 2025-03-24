@@ -1,7 +1,10 @@
 # vimrc
 
-My personal neovim configuration file. It consists of the standard lua setup:
-one `init.lua` file and a `lua/` folder for the different modules. Inside that
-folder are two subfolders: `config/` and `plugins/`. The `config/` folder
-contains the configuration files both for the whole editor and for the plugins,
-and the `plugins/` folder contains the plugin setup (using "lazy.nvim").
+My personal neovim configuration file.
+
+After having spent way too much time tweaking my config and not quite liking
+every aspects of it, I've decided to use LazyVim, disabling some stuff, adding
+some plugins and changing the keymaps to match my old vim config.
+
+I still have to port my Ultisnips to Luasnip but that I'll do when I have time
+and it seems like a long thing to do.
