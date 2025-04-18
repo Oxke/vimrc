@@ -1,5 +1,6 @@
 return {
   "zbirenbaum/copilot.lua",
+  dependencies = { "giuxtaposition/blink-cmp-copilot" },
   cmd = "Copilot",
   build = ":Copilot auth",
   event = "BufReadPost",
@@ -9,7 +10,7 @@ return {
       auto_trigger = true,
       hide_during_completion = vim.g.ai_cmp,
       keymap = {
-        accept = '<tab>',
+        accept = '<A-l>',
         next = "<A-k>",
         prev = "<A-j>",
       },

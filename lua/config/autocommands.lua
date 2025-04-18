@@ -10,14 +10,14 @@ au({"FileType"}, {
     })
 
 au({"FileType"}, {
-       pattern = {"markdown", "html"},
-       callback = "setlocal tw=1000"
+       pattern = {"html"},
+       callback = function () vim.opt_local.textwidth = 120 end
     })
 
 
 au({"FileType"}, {
        pattern = "gitcommit",
-       callback = "setlocal tw=72"
+       callback = function () vim.opt_local.textwidth = 72 end
     })
 
 au({"BufNewFile"}, {
@@ -42,10 +42,13 @@ au({"BufReadPost"}, {
     end
 })
 
-
-au({"BufWritePre"}, {
-    pattern = {"*.txt", "*.js", "*.py", "*.wiki", "*.sh", "*.coffee", "*.jl"},
+au("FileType", {
+    pattern = "python",
     callback = function()
-        vim.cmd("call CleanExtraSpaces()")
+        filename = vim.fn.expand("%:t")
+        if filename:match(".ju.py$") then
+            vim.bo.filetype = "jupynium"
+            vim.cmd("setlocal syntax=python")
+        end
     end
 })

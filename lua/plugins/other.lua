@@ -27,4 +27,17 @@ return {{"norcalli/nvim-colorizer.lua", opts = {},
                 command = "undojoin | Neoformat"
             })
             vim.g.latexindent_opt = "-m"
-         end}}
+         end},
+      {
+        "kiyoon/jupynium.nvim",
+        ft = "jupynium",
+        build = "pip install .",
+        opts = {
+            jupyter_command = "jupyter notebook",
+        }
+        -- build = "uv pip install . --python=$HOME/.virtualenvs/jupynium/bin/python",
+        -- build = "conda run --no-capture-output -n jupynium pip install .",
+      },
+      --"rcarriga/nvim-notify",   -- optional
+      --"stevearc/dressing.nvim", -- optional, UI for :JupyniumKernelSelect
+ }
